@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://qihgss2rdvg8"]
+
+[ext_resource type="PackedScene" uid="uid://5txt42x7efkl" path="res://Entities/player/player.tscn" id="1_sjb42"]
+[ext_resource type="PackedScene" uid="uid://cy8irxp5s862h" path="res://Entities/ennemy/goomba.tscn" id="2_pdtm5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_txtq1"]
+size = Vector2(1186, 176)
+
+[sub_resource type="QuadMesh" id="QuadMesh_sjb42"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pdtm5"]
+size = Vector2(11.689178, 12.755112)
+
+[sub_resource type="QuadMesh" id="QuadMesh_b3oru"]
+
+[node name="Node2D" type="Node2D" unique_id=1438370669]
+
+[node name="RigidBody2D" type="StaticBody2D" parent="." unique_id=365082847]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" unique_id=188462362]
+position = Vector2(576, 586)
+shape = SubResource("RectangleShape2D_txtq1")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="RigidBody2D/CollisionShape2D" unique_id=1984778684]
+modulate = Color(0.22745098, 1, 0.1254902, 1)
+position = Vector2(-9.9999695, 6.000019)
+scale = Vector2(1210.0001, 177.99998)
+mesh = SubResource("QuadMesh_sjb42")
+
+[node name="player" parent="." unique_id=1678342468 instance=ExtResource("1_sjb42")]
+position = Vector2(129, 353)
+speed = 300
+jumpforce = 700
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=114649955]
+position = Vector2(1140, 501.00003)
+scale = Vector2(2.96, 9.800001)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=2104121488]
+position = Vector2(4.155426, -0.86735916)
+shape = SubResource("RectangleShape2D_pdtm5")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D" unique_id=782551359]
+position = Vector2(4.0540543, -0.9183705)
+scale = Vector2(11.715084, -12.624374)
+mesh = SubResource("QuadMesh_b3oru")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=1691255609]
+position = Vector2(-33, 508.00003)
+scale = Vector2(2.96, 9.800001)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=1467465810]
+position = Vector2(4.155426, -0.86735916)
+shape = SubResource("RectangleShape2D_pdtm5")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D2" unique_id=73993657]
+position = Vector2(4.0540543, -0.9183705)
+scale = Vector2(11.715084, -12.624374)
+mesh = SubResource("QuadMesh_b3oru")
+
+[node name="goomba" parent="." unique_id=1099810640 instance=ExtResource("2_pdtm5")]
+position = Vector2(492, 414)
+scale = Vector2(5.5200005, 5.5200005)

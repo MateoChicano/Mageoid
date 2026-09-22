@@ -1,0 +1,5 @@
+Un petit magicien arrive dans une nouvelle région pour découvrir de nouveaux type de magies.
+Pour ca il va devoir rassembler ces connaissances pour créer de nouveaux sorts et avancer.
+
+Il peut marcher, courir, sauter et tirer des petits projectiles avec ses doigts et sauter sur les murs (secret).
+

@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://b20q663xq16fv"]
+
+[ext_resource type="Script" uid="uid://bn2s1gqfhpepx" path="res://Entities/player/Bullet/bullet.gd" id="1_twgj4"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_mgb7j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_twgj4"]
+
+[node name="Node2D" type="Node2D" unique_id=1369955138]
+
+[node name="Node2D" type="Area2D" parent="." unique_id=455993422]
+collision_layer = 8
+collision_mask = 16
+script = ExtResource("1_twgj4")
+speed = 1500
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D" unique_id=1151578564]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Node2D" unique_id=207656591]
+position = Vector2(4.7683716e-07, 2.861023e-06)
+scale = Vector2(20.02268, 20.000004)
+mesh = SubResource("SphereMesh_mgb7j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D" unique_id=269284327]
+shape = SubResource("RectangleShape2D_twgj4")
+
+[connection signal="area_entered" from="Node2D" to="Node2D" method="_on_bullet_body_entered"]
