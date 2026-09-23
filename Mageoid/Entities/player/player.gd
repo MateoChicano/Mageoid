@@ -8,10 +8,10 @@ class_name player extends CharacterBody2D
 
 @onready var animationPlayer : AnimationPlayer = $AnimationPlayer
 @onready var hurtbox : CollisionShape2D = $hurtbox/CollisionShape2D
-@onready var cannon : Node2D = $cannon
-@onready var sprite : Sprite2D = $Sprite2D
-@onready var cannon_mesh : MeshInstance2D = $cannon_mesh
-@onready var cannon_pos : float = cannon.position.x
+@onready var handgun : Node2D = $handgun
+@onready var body_sprite : Sprite2D = $Sprite2D
+@onready var hand_sprite : Sprite2D = $handgun/Sprite2D
+@onready var handgun_pos : float = handgun.position.x
 
 
 var direction : Array[Vector2] = [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT]
@@ -25,7 +25,7 @@ const GRAVITY : int = 1500
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	handgun.visible = false
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -34,10 +34,21 @@ func _physics_process(delta: float) -> void:
 	if ! self.is_on_floor():
 		self.velocity.y += GRAVITY * delta
 
-	cannon_mesh.rotation = (get_global_mouse_position() - cannon.global_position).angle()
+	handgun.rotation = (get_global_mouse_position() - handgun.global_position).angle()
 	get_input()
 	if Input.is_action_pressed("aim") :
-		velocity = Vector2.ZERO
+		handgun.visible = true
+		velocity.x = Vector2.ZERO.x
+		var dir : Vector2  = (get_global_mouse_position() - handgun.global_position).normalized()
+		if dir.x < 0 :
+			body_sprite.flip_h = true 
+			hand_sprite.flip_v = true
+			facing = Vector2.LEFT
+		else :
+			body_sprite.flip_h = false
+			hand_sprite.flip_v = false
+			facing = Vector2.RIGHT
+	
 	move_and_slide()
 
 func get_input():
@@ -45,17 +56,17 @@ func get_input():
 
 	if input_direction.x < 0 : 
 		facing = Vector2.LEFT
-		sprite.flip_h = true
-		cannon.position.x = -cannon_pos
+		body_sprite.flip_h = true
+		handgun.position.x = -handgun_pos
 	elif input_direction.x > 0 :
 		self.facing = Vector2.RIGHT
-		sprite.flip_h = false
-		cannon.position.x = cannon_pos
+		body_sprite.flip_h = false
+		handgun.position.x = handgun_pos
 
 	if can_move :
 		self.velocity.x = input_direction.x * speed
 
-	if (Input.is_action_pressed("jump")) and can_jump :
+	if (Input.is_action_just_pressed("jump")) and can_jump :
 		self.velocity.y -= jumpforce
 	if Input.is_action_just_pressed("attack") :
 		shoot(facing)
@@ -68,9 +79,9 @@ func hurt_box_entered(_body : Node2D) -> void :
 func shoot(dir : Vector2) -> void :
 	var bullet = Bullet.instantiate()
 	owner.add_child(bullet)
-	bullet.transform = cannon.global_transform
+	bullet.transform = handgun.global_transform
 	if Input.is_action_pressed("aim") :
-		dir = (get_global_mouse_position() - cannon.global_position).normalized()
+		dir = (get_global_mouse_position() - handgun.global_position).normalized()
 	else :
-		bullet.position = cannon.global_position + Vector2(cannon_pos, 0)
+		bullet.position = handgun.global_position + Vector2(handgun_pos, 0)
 	bullet.rotation = dir.angle()

@@ -3,3 +3,10 @@ Pour ca il va devoir rassembler ces connaissances pour créer de nouveaux sorts 
 
 Il peut marcher, courir, sauter et tirer des petits projectiles avec ses doigts et sauter sur les murs (secret).
 
+1er etape : refaire super metroid de A a Z avec des skins différents et des ajouts QoL (mouvements plus nerveux, accrochage au plateforme, free aim, glissade, contre)
+
+2e etape : ajouter un système de fusion d'attaque (ex : rayon de glace + missile = missile de glace, bombe + missile = missile avec un plus grand rayon d'explosion etc...)
+
+3e etape : refaire une map avec ces nouveaux éléments en tete 
+
+

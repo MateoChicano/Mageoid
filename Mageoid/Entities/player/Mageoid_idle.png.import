@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d02a3bfqdiln4"
-path="res://.godot/imported/samus_free_aim_body.png-6f7e998672855f5745f9283ef6df0438.ctex"
+uid="uid://bja5uiu08qqa3"
+path="res://.godot/imported/Mageoid_idle.png-e19aa4edaf12efdde792f684731b3d7b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/player/samus_free_aim_body.png"
-dest_files=["res://.godot/imported/samus_free_aim_body.png-6f7e998672855f5745f9283ef6df0438.ctex"]
+source_file="res://Entities/player/Mageoid_idle.png"
+dest_files=["res://.godot/imported/Mageoid_idle.png-e19aa4edaf12efdde792f684731b3d7b.ctex"]
 
 [params]
 
