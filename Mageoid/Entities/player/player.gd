@@ -7,7 +7,6 @@ class_name player extends CharacterBody2D
 @export var Bullet : PackedScene
 
 @onready var animationPlayer : AnimationPlayer = $AnimationPlayer
-@onready var hurtbox : CollisionShape2D = $hurtbox/CollisionShape2D
 @onready var handgun : Node2D = $handgun
 @onready var body_sprite : Sprite2D = $Sprite2D
 @onready var hand_sprite : Sprite2D = $handgun/Sprite2D
@@ -48,6 +47,8 @@ func _physics_process(delta: float) -> void:
 			body_sprite.flip_h = false
 			hand_sprite.flip_v = false
 			facing = Vector2.RIGHT
+	else :
+		handgun.visible = false
 	
 	move_and_slide()
 

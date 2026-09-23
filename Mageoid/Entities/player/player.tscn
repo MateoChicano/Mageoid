@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://oxvqidgcrght" path="res://Entities/player/Mageoid_hand.png" id="4_y660y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m0gmf"]
-size = Vector2(34, 64)
+size = Vector2(34, 59)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y660y"]
 size = Vector2(22, 51)
@@ -67,6 +67,7 @@ script = ExtResource("1_qjpfe")
 Bullet = ExtResource("2_q6ntu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1090372917]
+position = Vector2(0, -2.5)
 shape = SubResource("RectangleShape2D_m0gmf")
 
 [node name="hurtbox" type="Area2D" parent="." unique_id=1259627484]

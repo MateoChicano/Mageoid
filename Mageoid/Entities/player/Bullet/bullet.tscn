@@ -1,10 +1,12 @@
 [gd_scene format=3 uid="uid://b20q663xq16fv"]
 
 [ext_resource type="Script" uid="uid://bn2s1gqfhpepx" path="res://Entities/player/Bullet/bullet.gd" id="1_twgj4"]
+[ext_resource type="Texture2D" uid="uid://crfufjfmellov" path="res://Entities/player/Bullet/Bullet_base.png" id="2_rktpb"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_mgb7j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_twgj4"]
+size = Vector2(20, 10)
 
 [node name="Node2D" type="Node2D" unique_id=1369955138]
 
@@ -15,8 +17,12 @@ script = ExtResource("1_twgj4")
 speed = 1500
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D" unique_id=1151578564]
+position = Vector2(-0.5000005, 1.1875007)
+scale = Vector2(0.031944443, 0.027256945)
+texture = ExtResource("2_rktpb")
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="Node2D" unique_id=207656591]
+visible = false
 position = Vector2(4.7683716e-07, 2.861023e-06)
 scale = Vector2(20.02268, 20.000004)
 mesh = SubResource("SphereMesh_mgb7j")
