@@ -1,12 +1,11 @@
 [gd_scene format=3 uid="uid://5txt42x7efkl"]
 
 [ext_resource type="Script" uid="uid://0nnho7r0uuo" path="res://Entities/player/player.gd" id="1_qjpfe"]
-[ext_resource type="PackedScene" uid="uid://b20q663xq16fv" path="res://Entities/player/Bullet/bullet.tscn" id="2_q6ntu"]
 [ext_resource type="Texture2D" uid="uid://bja5uiu08qqa3" path="res://Entities/player/Mageoid_idle.png" id="3_q6ntu"]
 [ext_resource type="Texture2D" uid="uid://oxvqidgcrght" path="res://Entities/player/Mageoid_hand.png" id="4_y660y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m0gmf"]
-size = Vector2(34, 59)
+size = Vector2(34, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y660y"]
 size = Vector2(22, 51)
@@ -64,10 +63,8 @@ _data = {
 [node name="player" type="CharacterBody2D" unique_id=817353588]
 collision_layer = 0
 script = ExtResource("1_qjpfe")
-Bullet = ExtResource("2_q6ntu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1090372917]
-position = Vector2(0, -2.5)
 shape = SubResource("RectangleShape2D_m0gmf")
 
 [node name="hurtbox" type="Area2D" parent="." unique_id=1259627484]
