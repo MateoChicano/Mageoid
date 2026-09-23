@@ -4,7 +4,7 @@ class_name player extends CharacterBody2D
 @export var jumpforce : int
 @export var iFrames : int = 30
 @export var health : int = 99
-@export var Bullet : PackedScene
+@export var bullet : PackedScene
 
 @onready var animationPlayer : AnimationPlayer = $AnimationPlayer
 @onready var handgun : Node2D = $handgun
@@ -78,11 +78,11 @@ func hurt_box_entered(_body : Node2D) -> void :
 	print("HIT")
 
 func shoot(dir : Vector2) -> void :
-	var bullet = Bullet.instantiate()
-	owner.add_child(bullet)
-	bullet.transform = handgun.global_transform
+	var b = bullet.instantiate()
+	owner.add_child(b)
+	b.transform = handgun.get_node("cannon").global_transform
 	if Input.is_action_pressed("aim") :
 		dir = (get_global_mouse_position() - handgun.global_position).normalized()
 	else :
-		bullet.position = handgun.global_position + Vector2(handgun_pos, 0)
-	bullet.rotation = dir.angle()
+		b.position = handgun.global_position + Vector2(handgun_pos, 0)
+	b.rotation = dir.angle()

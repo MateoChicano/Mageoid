@@ -11,7 +11,7 @@ size = Vector2(20, 10)
 [node name="Node2D" type="Node2D" unique_id=1369955138]
 
 [node name="Node2D" type="Area2D" parent="." unique_id=455993422]
-collision_layer = 8
+collision_layer = 2
 collision_mask = 16
 script = ExtResource("1_twgj4")
 speed = 1500

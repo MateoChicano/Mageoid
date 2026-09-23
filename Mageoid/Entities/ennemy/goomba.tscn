@@ -31,4 +31,4 @@ collision_mask = 2
 position = Vector2(0, 8.5)
 shape = SubResource("RectangleShape2D_cu4qg")
 
-[connection signal="area_entered" from="hurtbox" to="." method="hurtbox_entered"]
+[connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_entered"]

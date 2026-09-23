@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://qihgss2rdvg8"]
 
 [ext_resource type="PackedScene" uid="uid://5txt42x7efkl" path="res://Entities/player/player.tscn" id="1_sjb42"]
+[ext_resource type="PackedScene" uid="uid://b20q663xq16fv" path="res://Entities/player/Bullet/bullet.tscn" id="2_b3oru"]
 [ext_resource type="PackedScene" uid="uid://cy8irxp5s862h" path="res://Entities/ennemy/goomba.tscn" id="2_pdtm5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_txtq1"]
@@ -31,6 +32,7 @@ mesh = SubResource("QuadMesh_sjb42")
 position = Vector2(129, 353)
 speed = 300
 jumpforce = 700
+bullet = ExtResource("2_b3oru")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=114649955]
 position = Vector2(1140, 501.00003)

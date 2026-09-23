@@ -3,6 +3,7 @@ class_name  enemy extends CharacterBody2D
 
 @export var speed : float= 100.0
 @export var knockback : float = 100.0
+@export var health : int = 5 
 const GRAVITY = 1000
 
 func _ready() -> void:
@@ -15,13 +16,17 @@ func _physics_process(delta: float) -> void:
 	patrol()
 	move_and_slide()
 
+func _on_hurtbox_entered(body : Area2D) -> void:
+	if body.collision_layer == 2:
+		take_damage(body.damage)
+
+func take_damage(damage : int) -> void:
+	health -= damage
+	if health <= 0 :
+		die()
+
 func die() -> void:
 	self.queue_free()
-
-func hurtbox_entered(area: Area2D) -> void:
-	if area.position.y > get_node("hurtbox").position.y :
-		if area.collision_layer == 2 :
-			die()
 	
 func patrol() -> void :
 
