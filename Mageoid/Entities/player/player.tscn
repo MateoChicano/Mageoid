@@ -60,6 +60,8 @@ _data = {
 
 [sub_resource type="AnimationRootNode" id="AnimationRootNode_q6ntu"]
 
+[sub_resource type="QuadMesh" id="QuadMesh_q6ntu"]
+
 [node name="player" type="CharacterBody2D" unique_id=817353588]
 collision_layer = 0
 script = ExtResource("1_qjpfe")
@@ -100,5 +102,10 @@ position = Vector2(33, 0)
 position = Vector2(24, 2)
 scale = Vector2(0.02777777, 0.02777777)
 texture = ExtResource("4_y660y")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="handgun" unique_id=1765084846]
+position = Vector2(66.875, 0)
+scale = Vector2(131.75, 1)
+mesh = SubResource("QuadMesh_q6ntu")
 
 [connection signal="body_entered" from="hurtbox" to="." method="hurt_box_entered"]
