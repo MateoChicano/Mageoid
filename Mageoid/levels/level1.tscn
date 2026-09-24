@@ -20,12 +20,12 @@ size = Vector2(11.689178, 12.755112)
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="RigidBody2D" unique_id=1984778684]
 modulate = Color(0.22745098, 1, 0.1254902, 1)
-position = Vector2(566, 592)
-scale = Vector2(1210.0001, 177.99998)
+position = Vector2(566, 604.5)
+scale = Vector2(1210.0001, 203)
 mesh = SubResource("QuadMesh_sjb42")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" unique_id=188462362]
-position = Vector2(576, 588.5)
+position = Vector2(565, 590)
 shape = SubResource("RectangleShape2D_txtq1")
 
 [node name="player" parent="." unique_id=1678342468 instance=ExtResource("1_sjb42")]

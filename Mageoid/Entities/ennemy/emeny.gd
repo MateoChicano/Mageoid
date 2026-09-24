@@ -1,9 +1,12 @@
-class_name  enemy extends CharacterBody2D
+class_name  Ennemy extends CharacterBody2D
 
 
 @export var speed : float= 100.0
 @export var knockback : float = 100.0
+@export var damage : int = 20
 @export var health : int = 5 
+
+@onready var sprite : Sprite2D = $Sprite2D
 const GRAVITY = 1000
 
 func _ready() -> void:
@@ -20,16 +23,20 @@ func _on_hurtbox_entered(body : Area2D) -> void:
 	if body.collision_layer == 2:
 		take_damage(body.damage)
 
-func take_damage(damage : int) -> void:
-	health -= damage
+func take_damage(amt_taken : int) -> void:
+	health -= amt_taken
 	if health <= 0 :
 		die()
+	sprite.modulate = Color.RED
+	await get_tree().create_timer(0.1).timeout
+	sprite.modulate = Color.WHITE
+	
 
 func die() -> void:
 	self.queue_free()
 	
 func patrol() -> void :
-
+	
 	if abs(velocity.x) < 1 :
 		speed = -speed
 		velocity.x = speed

@@ -35,20 +35,7 @@ func _physics_process(delta: float) -> void:
 
 	handgun.rotation = (get_global_mouse_position() - handgun.global_position).angle()
 	get_input()
-	if Input.is_action_pressed("aim") :
-		handgun.visible = true
-		velocity.x = Vector2.ZERO.x
-		var dir : Vector2  = (get_global_mouse_position() - handgun.global_position).normalized()
-		if dir.x < 0 :
-			body_sprite.flip_h = true 
-			hand_sprite.flip_v = true
-			facing = Vector2.LEFT
-		else :
-			body_sprite.flip_h = false
-			hand_sprite.flip_v = false
-			facing = Vector2.RIGHT
-	else :
-		handgun.visible = false
+	
 	
 	move_and_slide()
 
@@ -67,10 +54,28 @@ func get_input():
 	if can_move :
 		self.velocity.x = input_direction.x * speed
 
+	if Input.is_action_pressed("aim") :
+		handgun.visible = true
+		velocity.x = Vector2.ZERO.x
+		var dir : Vector2  = (get_global_mouse_position() - handgun.global_position).normalized()
+		if dir.x < 0 :
+			body_sprite.flip_h = true 
+			hand_sprite.flip_v = true
+			facing = Vector2.LEFT
+		else :
+			body_sprite.flip_h = false
+			hand_sprite.flip_v = false
+			facing = Vector2.RIGHT
+	else :
+		handgun.visible = false
+
+	if Input.is_action_pressed("up") :
+		facing = Vector2.UP
 	if (Input.is_action_just_pressed("jump")) and can_jump :
 		self.velocity.y -= jumpforce
 	if Input.is_action_just_pressed("attack") :
 		shoot(facing)
+	
 
 	
 
