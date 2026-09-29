@@ -13,7 +13,6 @@ class_name player extends CharacterBody2D
 @onready var handgun_pos : float = handgun.position.x
 
 
-var direction : Array[Vector2] = [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT]
 var coyote_time : float = 0.2
 var facing : Vector2 = Vector2.RIGHT
 
@@ -25,8 +24,6 @@ const GRAVITY : int = 1500
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	handgun.visible = false
-	pass
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
@@ -39,19 +36,28 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func get_input():
+	
 	var input_direction = Input.get_vector("left", "right", "up", "down")
+	if input_direction :
+		handgun.rotation = input_direction
 
-	if input_direction.x < 0 : 
+	if Input.is_action_pressed("left") : 
 		facing = Vector2.LEFT
 		body_sprite.flip_h = true
-		handgun.rotation = Vector2.LEFT.angle()
-	elif input_direction.x > 0 :
+		hand_sprite.flip_v = true
+		# handgun.rotation = Vector2.LEFT.angle()
+
+	if Input.is_action_pressed("right") :
 		self.facing = Vector2.RIGHT
-		handgun.rotation = Vector2.RIGHT.angle()
+		# handgun.rotation = Vector2.RIGHT.angle()
 		body_sprite.flip_h = false
+		hand_sprite.flip_v = false
 
 	if can_move :
 		self.velocity.x = input_direction.x * speed
+	
+	if (Input.is_action_just_pressed("jump")) and can_jump :
+		self.velocity.y -= jumpforce
 
 	if Input.is_action_pressed("aim") :
 		handgun.visible = true
@@ -62,7 +68,7 @@ func get_input():
 		else :
 			can_jump = true
 		var dir : Vector2  = (get_global_mouse_position() - handgun.global_position).normalized()
-		handgun.rotation = dir.angle()
+		# handgun.rotation = dir.angle()
 		if dir.x < 0 :
 			body_sprite.flip_h = true 
 			hand_sprite.flip_v = true
@@ -71,22 +77,24 @@ func get_input():
 			body_sprite.flip_h = false
 			hand_sprite.flip_v = false
 			facing = Vector2.RIGHT
-	if Input.is_action_just_released("aim") :
+
+	if Input.is_action_just_released("aim") or Input.is_action_just_released("up"):
 		handgun.visible = false
-		handgun.rotation = facing.angle()
+		# handgun.rotation = facing.angle()
 
 	if Input.is_action_pressed("up") :
 		handgun.visible = true
-		handgun.rotation = Vector2.UP.angle()
+		# handgun.rotation = Vector2.UP.angle()
 		if facing == Vector2.LEFT :
 			hand_sprite.flip_v = true
 		else :
 			hand_sprite.flip_v = false
 		facing = Vector2.UP
-	if (Input.is_action_just_pressed("jump")) and can_jump :
-		self.velocity.y -= jumpforce
+
+
 	if Input.is_action_just_pressed("attack") :
-		shoot(facing)
+		handgun.visible = true
+		shoot(input_direction)
 	
 
 	
