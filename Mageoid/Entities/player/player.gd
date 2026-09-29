@@ -58,6 +58,9 @@ func get_input():
 		velocity.x /= 3
 		if is_on_floor() :
 			velocity = Vector2.ZERO
+			can_jump = false
+		else :
+			can_jump = true
 		var dir : Vector2  = (get_global_mouse_position() - handgun.global_position).normalized()
 		handgun.rotation = dir.angle()
 		if dir.x < 0 :

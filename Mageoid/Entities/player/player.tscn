@@ -79,7 +79,7 @@ debug_color = Color(0.22016424, 0.6286104, 0.34133157, 0.41960785)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1347235426]
 zoom = Vector2(2, 2)
-position_smoothing_speed = 50.0
+position_smoothing_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1711545104]
 libraries/ = SubResource("AnimationLibrary_y660y")
@@ -104,6 +104,7 @@ scale = Vector2(0.02777777, 0.02777777)
 texture = ExtResource("4_y660y")
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="handgun" unique_id=1765084846]
+visible = false
 position = Vector2(66.875, 0)
 scale = Vector2(131.75, 1)
 mesh = SubResource("QuadMesh_q6ntu")
