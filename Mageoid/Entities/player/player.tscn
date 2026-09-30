@@ -79,7 +79,6 @@ debug_color = Color(0.22016424, 0.6286104, 0.34133157, 0.41960785)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1347235426]
 zoom = Vector2(2, 2)
-position_smoothing_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1711545104]
 libraries/ = SubResource("AnimationLibrary_y660y")
@@ -109,4 +108,10 @@ position = Vector2(66.875, 0)
 scale = Vector2(131.75, 1)
 mesh = SubResource("QuadMesh_q6ntu")
 
+[node name="idle_timer" type="Timer" parent="." unique_id=2049284299]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
 [connection signal="body_entered" from="hurtbox" to="." method="hurt_box_entered"]
+[connection signal="timeout" from="idle_timer" to="." method="_on_idle_timer_timeout"]

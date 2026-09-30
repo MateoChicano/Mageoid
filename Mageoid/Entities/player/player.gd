@@ -11,6 +11,8 @@ class_name player extends CharacterBody2D
 @onready var body_sprite : Sprite2D = $Sprite2D
 @onready var hand_sprite : Sprite2D = $handgun/Sprite2D
 @onready var handgun_pos : float = handgun.position.x
+@onready var idle_timer: Timer = $idle_timer
+
 
 
 var coyote_time : float = 0.2
@@ -54,12 +56,14 @@ func get_input():
 		hand_sprite.flip_v = false
 
 	if can_move :
-		self.velocity.x = horizontal_input * speed
+		self.velocity.x = lerp(self.velocity.x, horizontal_input * speed, 0.25)
 	
 	if (Input.is_action_just_pressed("jump")) and can_jump :
 		self.velocity.y -= jumpforce
 
+
 	if Input.is_action_pressed("aim") :
+		idle_timer.start()
 		handgun.visible = true
 		velocity.x /= 3
 
@@ -70,7 +74,7 @@ func get_input():
 			can_jump = true
 		var dir : Vector2  = (get_global_mouse_position() - handgun.global_position).normalized()
 		handgun.rotation = dir.angle()
-		
+
 		if dir.x < 0 :
 			body_sprite.flip_h = true 
 			hand_sprite.flip_v = true
@@ -80,10 +84,11 @@ func get_input():
 			hand_sprite.flip_v = false
 			facing = Vector2.RIGHT
 
-	if Input.is_action_just_released("aim") or Input.is_action_just_released("up"):
-		handgun.visible = false
+	if Input.is_action_just_released("aim"):
+		handgun.rotation = facing.angle()
 
 	if Input.is_action_pressed("up") :
+		idle_timer.start()
 		handgun.visible = true
 		if facing == Vector2.LEFT :
 			hand_sprite.flip_v = true
@@ -93,6 +98,7 @@ func get_input():
 
 
 	if Input.is_action_just_pressed("attack") :
+		idle_timer.start()
 		handgun.visible = true
 		if input_direction != Vector2.ZERO :
 			shoot(input_direction)
@@ -114,3 +120,11 @@ func shoot(dir : Vector2) -> void :
 	else :
 		b.position = handgun.get_node("cannon").global_position + Vector2(handgun_pos, 0)
 	b.rotation = dir.angle()
+
+
+func _on_idle_timer_timeout() -> void:
+	handgun.visible = false
+	if facing != Vector2.LEFT || Vector2.RIGHT :
+		facing = Vector2.RIGHT
+	idle_timer.start()
+
