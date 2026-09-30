@@ -36,6 +36,7 @@ func _physics_process(delta: float) -> void:
 	can_jump = is_on_floor()
 	get_input()
 	move_and_slide()
+	print(is_on_wall())
 
 func get_input():
 	
@@ -124,7 +125,8 @@ func shoot(dir : Vector2) -> void :
 
 func _on_idle_timer_timeout() -> void:
 	handgun.visible = false
-	if facing != Vector2.LEFT || Vector2.RIGHT :
+	if facing != Vector2.LEFT or facing != Vector2.RIGHT :
 		facing = Vector2.RIGHT
+		handgun.rotation = facing.angle()
 	idle_timer.start()
 
