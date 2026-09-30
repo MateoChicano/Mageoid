@@ -62,13 +62,15 @@ func get_input():
 	if Input.is_action_pressed("aim") :
 		handgun.visible = true
 		velocity.x /= 3
+
 		if is_on_floor() :
 			velocity = Vector2.ZERO
 			can_jump = false
 		else :
 			can_jump = true
 		var dir : Vector2  = (get_global_mouse_position() - handgun.global_position).normalized()
-		# handgun.rotation = dir.angle()
+		handgun.rotation = dir.angle()
+		
 		if dir.x < 0 :
 			body_sprite.flip_h = true 
 			hand_sprite.flip_v = true
@@ -80,11 +82,9 @@ func get_input():
 
 	if Input.is_action_just_released("aim") or Input.is_action_just_released("up"):
 		handgun.visible = false
-		# handgun.rotation = facing.angle()
 
 	if Input.is_action_pressed("up") :
 		handgun.visible = true
-		# handgun.rotation = Vector2.UP.angle()
 		if facing == Vector2.LEFT :
 			hand_sprite.flip_v = true
 		else :
