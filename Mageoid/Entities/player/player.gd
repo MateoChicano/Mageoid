@@ -37,24 +37,24 @@ func _physics_process(delta: float) -> void:
 
 func get_input():
 	
+	var horizontal_input = Input.get_axis("left", "right")
 	var input_direction = Input.get_vector("left", "right", "up", "down")
-	if input_direction :
-		handgun.rotation = input_direction
+
+	if input_direction:
+		handgun.rotation = input_direction.angle()
 
 	if Input.is_action_pressed("left") : 
 		facing = Vector2.LEFT
 		body_sprite.flip_h = true
 		hand_sprite.flip_v = true
-		# handgun.rotation = Vector2.LEFT.angle()
 
 	if Input.is_action_pressed("right") :
 		self.facing = Vector2.RIGHT
-		# handgun.rotation = Vector2.RIGHT.angle()
 		body_sprite.flip_h = false
 		hand_sprite.flip_v = false
 
 	if can_move :
-		self.velocity.x = input_direction.x * speed
+		self.velocity.x = horizontal_input * speed
 	
 	if (Input.is_action_just_pressed("jump")) and can_jump :
 		self.velocity.y -= jumpforce
@@ -94,7 +94,10 @@ func get_input():
 
 	if Input.is_action_just_pressed("attack") :
 		handgun.visible = true
-		shoot(input_direction)
+		if input_direction != Vector2.ZERO :
+			shoot(input_direction)
+		else :
+			shoot(facing)
 	
 
 	
