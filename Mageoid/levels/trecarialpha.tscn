@@ -1,0 +1,22 @@
+[gd_scene format=4 uid="uid://dt3u88qwfwt1g"]
+
+[ext_resource type="Texture2D" uid="uid://nd6m7sit6s6w" path="res://crateria_layout.png" id="1_mwfco"]
+[ext_resource type="PackedScene" uid="uid://5txt42x7efkl" path="res://Entities/player/player.tscn" id="2_6hj8b"]
+[ext_resource type="PackedScene" uid="uid://b20q663xq16fv" path="res://Entities/player/Bullet/bullet.tscn" id="3_v1gde"]
+[ext_resource type="TileSet" uid="uid://xpsl0yw4ln43" path="res://levels/TileSets/crateria.tres" id="4_2cx2i"]
+
+[node name="Treacarialpha" type="Node2D" unique_id=1438370669]
+
+[node name="CrateriaLayout" type="Sprite2D" parent="." unique_id=1237467078]
+position = Vector2(153, 320)
+texture = ExtResource("1_mwfco")
+
+[node name="player" parent="." unique_id=1678342468 instance=ExtResource("2_6hj8b")]
+position = Vector2(129, 353)
+speed = 300
+jumpforce = 700
+bullet = ExtResource("3_v1gde")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1674517894]
+tile_map_data = PackedByteArray("AAAEABkAAAAPAAAAAAADABkAAAAPAAAAAAACABkAAAAPAAAAAAABABkAAAAPAAAAAAAAABkAAAAPAAAAAAD//xkAAAAPAAAAAAD+/xkAAAAOAAAAAAD9/xoAAAAOAAAAAAD8/xsAAAAPAAAAAAD7/xsAAAAPAAAAAAD6/xsAAAAPAAAAAAD5/xsAAAAPAAAAAAD4/xsAAAAPAAAAAAA=")
+tile_set = ExtResource("4_2cx2i")

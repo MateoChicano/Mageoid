@@ -9,6 +9,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_txtq1"]
 size = Vector2(1186, 171)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gmgay"]
+size = Vector2(1186, 202.05417)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pdtm5"]
 size = Vector2(11.689178, 38.87754)
 
@@ -29,20 +32,21 @@ position = Vector2(565, 590)
 shape = SubResource("RectangleShape2D_txtq1")
 
 [node name="RigidBody2D2" type="StaticBody2D" parent="." unique_id=1312037826]
-position = Vector2(90, -21)
+position = Vector2(-536, -7.808207e-06)
 rotation = -0.41914183
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="RigidBody2D2" unique_id=1524202212]
 modulate = Color(0.22745098, 1, 0.1254902, 1)
-position = Vector2(11.765629, 1230.77)
+position = Vector2(10.852173, 1228.3442)
 rotation = 1.8177793
 scale = Vector2(1210.0001, 203)
 mesh = SubResource("QuadMesh_sjb42")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D2" unique_id=157681215]
-position = Vector2(10.76569, 1216.27)
+position = Vector2(16.410767, 1217.5161)
 rotation = 1.8177793
-shape = SubResource("RectangleShape2D_txtq1")
+scale = Vector2(0.99999976, 0.99999976)
+shape = SubResource("RectangleShape2D_gmgay")
 
 [node name="player" parent="." unique_id=1678342468 instance=ExtResource("1_gmgay")]
 position = Vector2(129, 353)
@@ -64,7 +68,7 @@ scale = Vector2(11.715084, -12.624374)
 mesh = SubResource("QuadMesh_b3oru")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=1691255609]
-position = Vector2(-33, 508.00003)
+position = Vector2(-242.00003, 507)
 scale = Vector2(2.96, 9.800001)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=1467465810]

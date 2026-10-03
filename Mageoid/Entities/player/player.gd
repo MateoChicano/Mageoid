@@ -36,18 +36,18 @@ func _physics_process(delta: float) -> void:
 	can_jump = is_on_floor()
 	get_input()
 	move_and_slide()
-	print(is_on_wall())
 
 func get_input():
 	
 	var horizontal_input = Input.get_axis("left", "right")
 	var input_direction = Input.get_vector("left", "right", "up", "down")
 
+
 	if input_direction:
 		handgun.rotation = input_direction.angle()
 
 	if Input.is_action_pressed("left") : 
-		facing = Vector2.LEFT
+		self.facing = Vector2.LEFT
 		body_sprite.flip_h = true
 		hand_sprite.flip_v = true
 
@@ -58,6 +58,8 @@ func get_input():
 
 	if can_move :
 		self.velocity.x = lerp(self.velocity.x, horizontal_input * speed, 0.25)
+	else:
+		("can move is false")
 	
 	if (Input.is_action_just_pressed("jump")) and can_jump :
 		self.velocity.y -= jumpforce
@@ -107,10 +109,8 @@ func get_input():
 			shoot(facing)
 	
 
-	
-
 func hurt_box_entered(_body : Node2D) -> void :
-	print("HIT")
+	("HIT")
 
 func shoot(dir : Vector2) -> void :
 	var b = bullet.instantiate()
