@@ -1,7 +1,7 @@
 class_name player extends CharacterBody2D
 
-@export var speed : int
-@export var jumpforce : int
+@export var speed : int = 300
+@export var jumpforce : int = 700
 @export var iFrames : int = 30
 @export var health : int = 99
 @export var bullet : PackedScene
@@ -12,6 +12,7 @@ class_name player extends CharacterBody2D
 @onready var hand_sprite : Sprite2D = $handgun/Sprite2D
 @onready var handgun_pos : float = handgun.position.x
 @onready var idle_timer: Timer = $idle_timer
+@onready var health_label : Label = $HeadsUpDisplay/HealthLabel
 
 
 
@@ -26,6 +27,7 @@ const GRAVITY : int = 1500
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	handgun.visible = false
+	health_label.text = str(health)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
@@ -58,8 +60,6 @@ func get_input():
 
 	if can_move :
 		self.velocity.x = lerp(self.velocity.x, horizontal_input * speed, 0.25)
-	else:
-		("can move is false")
 	
 	if (Input.is_action_just_pressed("jump")) and can_jump :
 		self.velocity.y -= jumpforce
@@ -109,8 +109,20 @@ func get_input():
 			shoot(facing)
 	
 
-func hurt_box_entered(_body : Node2D) -> void :
-	("HIT")
+func hurt_box_entered(body : Node2D) -> void :
+	if health - body.damage > 0 :
+		var knockback_dir : Vector2 = Vector2(facing.x*-1, -1).normalized()
+		velocity.x = knockback_dir.x * 2000
+		velocity.y = knockback_dir.y * 700
+		for i in range(3):
+			body_sprite.modulate.v = 15
+			await get_tree().create_timer(0.05).timeout
+			body_sprite.modulate.v = 1
+			await get_tree().create_timer(0.05).timeout
+		health -= body.damage
+		health_label.text = str(health)
+	else : 
+		print("Game over")
 
 func shoot(dir : Vector2) -> void :
 	var b = bullet.instantiate()
@@ -129,4 +141,3 @@ func _on_idle_timer_timeout() -> void:
 		facing = Vector2.RIGHT
 		handgun.rotation = facing.angle()
 	idle_timer.start()
-

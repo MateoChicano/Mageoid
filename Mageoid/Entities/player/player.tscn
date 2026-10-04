@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://0nnho7r0uuo" path="res://Entities/player/player.gd" id="1_qjpfe"]
 [ext_resource type="Texture2D" uid="uid://bja5uiu08qqa3" path="res://Entities/player/Mageoid_idle.png" id="3_q6ntu"]
+[ext_resource type="PackedScene" uid="uid://csa7vh4snrxoa" path="res://Interface/HeadsUpDisplay.tscn" id="4_nqdw5"]
 [ext_resource type="Texture2D" uid="uid://oxvqidgcrght" path="res://Entities/player/Mageoid_hand.png" id="4_y660y"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gmgay"]
@@ -114,6 +115,12 @@ mesh = SubResource("QuadMesh_q6ntu")
 wait_time = 5.0
 one_shot = true
 autostart = true
+
+[node name="HeadsUpDisplay" parent="." unique_id=108865745 instance=ExtResource("4_nqdw5")]
+offset_left = -288.0
+offset_top = -162.0
+offset_right = -288.0
+offset_bottom = -162.0
 
 [connection signal="body_entered" from="hurtbox" to="." method="hurt_box_entered"]
 [connection signal="timeout" from="idle_timer" to="." method="_on_idle_timer_timeout"]

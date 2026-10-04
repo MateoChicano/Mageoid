@@ -27,9 +27,12 @@ func take_damage(amt_taken : int) -> void:
 	health -= amt_taken
 	if health <= 0 :
 		die()
-	sprite.modulate = Color.RED
-	await get_tree().create_timer(0.1).timeout
-	sprite.modulate = Color.WHITE
+
+	for i in range(3):
+		sprite.modulate.v = 15
+		await get_tree().create_timer(0.05).timeout
+		sprite.modulate.v = 1
+		await get_tree().create_timer(0.05).timeout
 	
 
 func die() -> void:
