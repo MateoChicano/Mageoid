@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://dbvx1u3l56asn"]
+
+[ext_resource type="Script" uid="uid://bkn16f4plxkl0" path="res://Items/item_drop.gd" id="1_eicbt"]
+
+[node name="item_drop" type="Node2D" unique_id=1527692063]
+script = ExtResource("1_eicbt")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=47165571]
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1895646404]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2045825535]
