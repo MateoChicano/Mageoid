@@ -15,6 +15,7 @@ class_name Player extends Entity
 var max_health : int = 99
 var coyote_time : float = 0.2
 var facing : Vector2 = Vector2.RIGHT
+var ammo : int = 10
 
 var can_move : bool = true
 var can_jump : bool = true
@@ -111,6 +112,9 @@ func get_input():
 	if Input.is_action_just_pressed("attack") :
 		idle_timer.start()
 		handgun.visible = true
+		if Input.is_action_pressed("weapon_switch") :
+			for i in range(ammo) :
+				shoot(facing)
 		if input_direction != Vector2.ZERO :
 			shoot(input_direction)
 		else :

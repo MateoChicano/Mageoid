@@ -12,8 +12,7 @@ func drop_pickups() -> void:
 	get_parent().add_child(pickup_instance)
 
 func _on_hurtbox_entered(body : Area2D) -> void:
-	if body.collision_layer == 2:
-		take_damage(body.damage)
+	take_damage(body.owner.damage)
 	for i in range(3):
 		sprite.modulate.v = 15
 		await get_tree().create_timer(0.05).timeout

@@ -21,4 +21,3 @@ func _on_pickup_area_entered(area: Area2D) -> void:
 		cplayer.health = cplayer.max_health
 	cplayer.health_label.text = str(cplayer.health)
 	self.queue_free()
-
