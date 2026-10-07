@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://c1nac1jwn4pv6"]
+
+[ext_resource type="Script" uid="uid://bl374iogcdc1" path="res://Entities/ennemy/ennemy.gd" id="1_ay8nl"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=633857878]
+script = ExtResource("1_ay8nl")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=555762524]
+
+[node name="collisions" type="CollisionShape2D" parent="." unique_id=611470463]
+
+[node name="hurtbox" type="Area2D" parent="." unique_id=2114759073]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox" unique_id=343783004]
+
+[connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_entered"]

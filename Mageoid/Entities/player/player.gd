@@ -1,9 +1,7 @@
-class_name player extends CharacterBody2D
+class_name Player extends Entity
 
 @export var speed : int = 300
 @export var jumpforce : int = 700
-@export var iFrames : int = 30
-@export var health : int = 99
 @export var bullet : PackedScene
 
 @onready var animationPlayer : AnimationPlayer = $AnimationPlayer
@@ -22,7 +20,8 @@ var facing : Vector2 = Vector2.RIGHT
 var can_move : bool = true
 var can_jump : bool = true
 
-const GRAVITY : int = 1500
+const knockbakk_force : int = 100
+const invincibility_time : float = 2
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -33,7 +32,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 
 	if ! self.is_on_floor():
-		self.velocity.y += GRAVITY * delta
+		self.velocity.y += self.GRAVITY * delta
 
 	can_jump = is_on_floor()
 	get_input()
