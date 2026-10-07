@@ -79,5 +79,5 @@ scale = Vector2(11.715084, -38.659126)
 mesh = SubResource("QuadMesh_b3oru")
 
 [node name="goomba" parent="." unique_id=1099810640 instance=ExtResource("3_o6mel")]
-position = Vector2(492, 414)
+position = Vector2(928, 444)
 scale = Vector2(2.2800028, 2.2800028)

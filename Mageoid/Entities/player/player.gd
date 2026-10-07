@@ -15,7 +15,7 @@ class_name player extends CharacterBody2D
 @onready var health_label : Label = $HeadsUpDisplay/HealthLabel
 
 
-
+var max_health : int = 99
 var coyote_time : float = 0.2
 var facing : Vector2 = Vector2.RIGHT
 
@@ -114,13 +114,13 @@ func hurt_box_entered(body : Node2D) -> void :
 		var knockback_dir : Vector2 = Vector2(facing.x*-1, -1).normalized()
 		velocity.x = knockback_dir.x * 2000
 		velocity.y = knockback_dir.y * 700
+		health -= body.damage
+		health_label.text = str(health)
 		for i in range(3):
 			body_sprite.modulate.v = 15
 			await get_tree().create_timer(0.05).timeout
 			body_sprite.modulate.v = 1
 			await get_tree().create_timer(0.05).timeout
-		health -= body.damage
-		health_label.text = str(health)
 	else : 
 		print("Game over")
 

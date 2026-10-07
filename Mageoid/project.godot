@@ -74,6 +74,7 @@ aim={
 2d_physics/layer_3="player_hurtbox"
 2d_physics/layer_4="ennemy_hitbox"
 2d_physics/layer_5="ennemy_hurtbox"
+2d_physics/layer_6="Pickups"
 
 [physics]
 

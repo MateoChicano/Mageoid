@@ -1,12 +1,14 @@
 class_name  Ennemy extends CharacterBody2D
 
 
+
 @export var speed : float= 100.0
 @export var knockback : float = 100.0
 @export var damage : int = 20
 @export var health : int = 5 
 
 @onready var sprite : Sprite2D = $Sprite2D
+@onready var pickups : PackedScene = preload("res://Items/item_drop.tscn")
 const GRAVITY = 1000
 
 func _ready() -> void:
@@ -36,6 +38,9 @@ func take_damage(amt_taken : int) -> void:
 	
 
 func die() -> void:
+	var pickup_instance = pickups.instantiate()
+	pickup_instance.position = self.position
+	get_parent().add_child(pickup_instance)
 	self.queue_free()
 	
 func patrol() -> void :
