@@ -21,5 +21,5 @@ func _on_hurtbox_entered(body : Area2D) -> void:
 		await get_tree().create_timer(0.05).timeout
 
 func die() -> void:
-	drop_pickups()
+	drop_pickups.call_deferred()
 	self.queue_free()

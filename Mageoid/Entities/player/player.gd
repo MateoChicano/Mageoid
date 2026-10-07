@@ -2,7 +2,6 @@ class_name Player extends Entity
 
 @export var speed : int = 300
 @export var jumpforce : int = 700
-@export var bullet : PackedScene
 
 @onready var animationPlayer : AnimationPlayer = $AnimationPlayer
 @onready var handgun : Node2D = $handgun
@@ -20,8 +19,10 @@ var facing : Vector2 = Vector2.RIGHT
 var can_move : bool = true
 var can_jump : bool = true
 
-const knockbakk_force : int = 100
+const knockback_force : int = 100
 const invincibility_time : float = 2
+const BULLET_SCENE : PackedScene = preload("res://Entities/player/bullets/bullet.tscn")
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -62,6 +63,14 @@ func get_input():
 	
 	if (Input.is_action_just_pressed("jump")) and can_jump :
 		self.velocity.y -= jumpforce
+
+	if Input.is_action_just_pressed("weapon_switch") :
+		handgun.visible = true
+		hand_sprite.modulate = Color.RED
+
+	if Input.is_action_just_released("weapon_switch") :
+		idle_timer.start()
+		hand_sprite.modulate = Color.WHITE
 
 
 	if Input.is_action_pressed("aim") :
@@ -113,7 +122,7 @@ func hurt_box_entered(body : Node2D) -> void :
 		var knockback_dir : Vector2 = Vector2(facing.x*-1, -1).normalized()
 		velocity.x = knockback_dir.x * 2000
 		velocity.y = knockback_dir.y * 700
-		health -= body.damage
+		take_damage(body.damage)
 		health_label.text = str(health)
 		for i in range(3):
 			body_sprite.modulate.v = 15
@@ -124,14 +133,14 @@ func hurt_box_entered(body : Node2D) -> void :
 		print("Game over")
 
 func shoot(dir : Vector2) -> void :
-	var b = bullet.instantiate()
-	owner.add_child(b)
-	b.transform = handgun.get_node("cannon").global_transform
+	var bullet_instance = BULLET_SCENE.instantiate()
+	owner.add_child(bullet_instance)
+	bullet_instance.transform = handgun.get_node("cannon").global_transform
 	if Input.is_action_pressed("aim") :
 		dir = (get_global_mouse_position() - handgun.global_position).normalized()
 	else :
-		b.position = handgun.get_node("cannon").global_position + Vector2(handgun_pos, 0)
-	b.rotation = dir.angle()
+		bullet_instance.position = handgun.get_node("cannon").global_position + Vector2(handgun_pos, 0)
+	bullet_instance.rotation = dir.angle()
 
 
 func _on_idle_timer_timeout() -> void:
