@@ -9,12 +9,14 @@ class_name Player extends Entity
 @onready var hand_sprite : Sprite2D = $handgun/Sprite2D
 @onready var handgun_pos : float = handgun.position.x
 @onready var idle_timer: Timer = $idle_timer
-@onready var health_label : Label = $HeadsUpDisplay/HealthLabel
+@onready var heads_up_display : Control = $HeadsUpDisplay
 
 
 var max_health : int = 99
 var coyote_time : float = 0.2
 var facing : Vector2 = Vector2.RIGHT
+var available_weapons : Array = ["", "missile"]
+var max_ammo : int = 10
 var ammo : int = 10
 
 var can_move : bool = true
@@ -28,7 +30,9 @@ const BULLET_SCENE : PackedScene = preload("res://Entities/player/bullets/bullet
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	handgun.visible = false
-	health_label.text = str(health)
+	heads_up_display.set_health(health)
+	heads_up_display.set_ammo(ammo)
+	heads_up_display.set_weapon(available_weapons[0])
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
@@ -64,6 +68,9 @@ func get_input():
 	
 	if (Input.is_action_just_pressed("jump")) and can_jump :
 		self.velocity.y -= jumpforce
+
+	if Input.is_action_just_pressed("weapon_select") :
+		heads_up_display.set_weapon(available_weapons[1])
 
 	if Input.is_action_just_pressed("weapon_switch") :
 		handgun.visible = true
@@ -127,7 +134,7 @@ func hurt_box_entered(body : Node2D) -> void :
 		velocity.x = knockback_dir.x * 2000
 		velocity.y = knockback_dir.y * 700
 		take_damage(body.damage)
-		health_label.text = str(health)
+		heads_up_display.set_health(health)
 		for i in range(3):
 			body_sprite.modulate.v = 15
 			await get_tree().create_timer(0.05).timeout

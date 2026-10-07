@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://qihgss2rdvg8"]
 
 [ext_resource type="PackedScene" uid="uid://5txt42x7efkl" path="res://Entities/player/player.tscn" id="1_gmgay"]
+[ext_resource type="Script" uid="uid://3w7wi2os1878" path="res://levels/ennemy_spawner.gd" id="3_gmgay"]
 [ext_resource type="PackedScene" uid="uid://cy8irxp5s862h" path="res://Entities/ennemy/gamboo.tscn" id="3_o6mel"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_sjb42"]
@@ -49,8 +50,6 @@ shape = SubResource("RectangleShape2D_gmgay")
 
 [node name="player" parent="." unique_id=1678342468 instance=ExtResource("1_gmgay")]
 position = Vector2(129, 353)
-speed = null
-jumpforce = null
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=114649955]
 position = Vector2(1140, 501.00003)
@@ -81,3 +80,11 @@ mesh = SubResource("QuadMesh_b3oru")
 [node name="goomba" parent="." unique_id=1099810640 instance=ExtResource("3_o6mel")]
 position = Vector2(928, 444)
 scale = Vector2(2.2800028, 2.2800028)
+
+[node name="Node2D" type="Node2D" parent="." unique_id=945151696]
+position = Vector2(3, 0)
+
+[node name="Timer" type="Timer" parent="Node2D" unique_id=1980110759]
+script = ExtResource("3_gmgay")
+
+[connection signal="timeout" from="Node2D/Timer" to="Node2D/Timer" method="_on_idle_timer_timeout"]
