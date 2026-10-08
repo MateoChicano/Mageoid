@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://1hc7t32puenj"]
+
+[ext_resource type="Script" uid="uid://dj2a5lw23l7i5" path="res://Items/Upgrades/upgrade.gd" id="1_36ym7"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_rt2cs"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3bm1v"]
+radius = 1.0
+
+[node name="Node2D" type="Node2D" unique_id=1858806097]
+script = ExtResource("1_36ym7")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=626893203]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="." unique_id=476975103]
+mesh = SubResource("SphereMesh_rt2cs")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=219494585]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=778859357]
+shape = SubResource("CircleShape2D_3bm1v")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_upgrade_area_entered"]

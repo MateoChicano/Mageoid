@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://qihgss2rdvg8"]
 
 [ext_resource type="PackedScene" uid="uid://5txt42x7efkl" path="res://Entities/player/player.tscn" id="1_gmgay"]
-[ext_resource type="Script" uid="uid://3w7wi2os1878" path="res://levels/ennemy_spawner.gd" id="3_gmgay"]
+[ext_resource type="PackedScene" uid="uid://csd2bli6fxkdj" path="res://Items/Upgrades/missile.tscn" id="3_gmgay"]
 [ext_resource type="PackedScene" uid="uid://cy8irxp5s862h" path="res://Entities/ennemy/gamboo.tscn" id="3_o6mel"]
+[ext_resource type="PackedScene" uid="uid://d4k82qmiyj1ts" path="res://Items/Upgrades/health.tscn" id="4_w7r7j"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_sjb42"]
 
@@ -50,6 +51,7 @@ shape = SubResource("RectangleShape2D_gmgay")
 
 [node name="player" parent="." unique_id=1678342468 instance=ExtResource("1_gmgay")]
 position = Vector2(129, 353)
+health = 100
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=114649955]
 position = Vector2(1140, 501.00003)
@@ -81,10 +83,10 @@ mesh = SubResource("QuadMesh_b3oru")
 position = Vector2(928, 444)
 scale = Vector2(2.2800028, 2.2800028)
 
-[node name="Node2D" type="Node2D" parent="." unique_id=945151696]
-position = Vector2(3, 0)
+[node name="missile" parent="." unique_id=1858806097 instance=ExtResource("3_gmgay")]
+position = Vector2(570, 454)
+scale = Vector2(29.69, 29.69)
 
-[node name="Timer" type="Timer" parent="Node2D" unique_id=1980110759]
-script = ExtResource("3_gmgay")
-
-[connection signal="timeout" from="Node2D/Timer" to="Node2D/Timer" method="_on_idle_timer_timeout"]
+[node name="health" parent="." unique_id=1698929280 instance=ExtResource("4_w7r7j")]
+position = Vector2(724, 466)
+scale = Vector2(29.435, 29.435)

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://csd2bli6fxkdj"]
+
+[ext_resource type="PackedScene" uid="uid://1hc7t32puenj" path="res://Items/Upgrades/upgrade.tscn" id="1_325ay"]
+
+[node name="missile" unique_id=1858806097 instance=ExtResource("1_325ay")]
+type = "weapon"
