@@ -50,7 +50,6 @@ func get_input():
 	var horizontal_input = Input.get_axis("left", "right")
 	var input_direction = Input.get_vector("left", "right", "up", "down")
 
-
 	if input_direction:
 		handgun.rotation = input_direction.angle()
 
@@ -93,7 +92,7 @@ func get_input():
 			can_jump = false
 		else :
 			can_jump = true
-		var dir : Vector2  = (get_global_mouse_position() - handgun.global_position).normalized()
+		var dir : Vector2  = input_direction.normalized()
 		handgun.rotation = dir.angle()
 
 		if dir.x < 0 :
@@ -128,7 +127,7 @@ func get_input():
 				shoot(facing)
 			else :
 				return
-		if input_direction != Vector2.ZERO :
+		if input_direction :
 			shoot(input_direction)
 		else :
 			shoot(facing)
@@ -149,14 +148,14 @@ func hurt_box_entered(body : Node2D) -> void :
 	else : 
 		print("Game over")
 
-func shoot(dir : Vector2) -> void :
+func shoot(dir : Vector2) -> void :	
 	var bullet_instance = BULLET_SCENE.instantiate()
 	owner.add_child(bullet_instance)
 	bullet_instance.transform = handgun.get_node("cannon").global_transform
-	if Input.is_action_pressed("aim") :
-		dir = (get_global_mouse_position() - handgun.global_position).normalized()
-	else :
-		bullet_instance.position = handgun.get_node("cannon").global_position + Vector2(handgun_pos, 0)
+	# if Input.is_action_pressed("aim") :
+	# 	dir = (get_global_mouse_position() - handgun.global_position).normalized()
+	# else :
+	bullet_instance.position = handgun.get_node("cannon").global_position + Vector2(handgun_pos, 0)
 	bullet_instance.rotation = dir.angle()
 
 
