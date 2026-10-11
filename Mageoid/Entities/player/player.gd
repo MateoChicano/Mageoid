@@ -22,10 +22,12 @@ var ammo : int = 10
 
 var can_move : bool = true
 var can_jump : bool = true
+var is_crouched : bool = false
 
 const knockback_force : int = 100
 const invincibility_time : float = 2
 const BULLET_SCENE : PackedScene = preload("res://Entities/player/bullets/bullet.tscn")
+const MISSILE_SCENE : PackedScene = preload("res://Entities/player/bullets/missile.tscn")
 
 
 # Called when the node enters the scene tree for the first time.
@@ -54,20 +56,36 @@ func get_input():
 		handgun.rotation = input_direction.angle()
 
 	if Input.is_action_pressed("left") : 
+		is_crouched = false
 		self.facing = Vector2.LEFT
 		body_sprite.flip_h = true
 		hand_sprite.flip_v = true
 
 	if Input.is_action_pressed("right") :
+		is_crouched = false
 		self.facing = Vector2.RIGHT
 		body_sprite.flip_h = false
 		hand_sprite.flip_v = false
+
+	if Input.is_action_pressed("up") :
+		is_crouched = false
+		idle_timer.start()
+		handgun.visible = true
+		if facing == Vector2.LEFT :
+			hand_sprite.flip_v = true
+		else :
+			hand_sprite.flip_v = false
+		facing = Vector2.UP
+	
+	if Input.is_action_just_pressed("down") :
+		is_crouched = true
 
 	if can_move :
 		self.velocity.x = lerp(self.velocity.x, horizontal_input * speed, 0.25)
 	
 	if (Input.is_action_just_pressed("jump")) and can_jump :
 		self.velocity.y -= jumpforce
+		is_crouched = false
 
 	if Input.is_action_just_pressed("weapon_select") :
 		weapon_index = (weapon_index + 1) % available_weapons.size()
@@ -107,14 +125,7 @@ func get_input():
 	if Input.is_action_just_released("aim"):
 		handgun.rotation = facing.angle()
 
-	if Input.is_action_pressed("up") :
-		idle_timer.start()
-		handgun.visible = true
-		if facing == Vector2.LEFT :
-			hand_sprite.flip_v = true
-		else :
-			hand_sprite.flip_v = false
-		facing = Vector2.UP
+
 
 
 	if Input.is_action_just_pressed("attack") :
@@ -124,7 +135,8 @@ func get_input():
 			if ammo > 0 :
 				ammo-=1
 				heads_up_display.set_ammo(ammo)
-				shoot(facing)
+				shoot(facing, true)
+				return
 			else :
 				return
 		if input_direction :
@@ -148,8 +160,13 @@ func hurt_box_entered(body : Node2D) -> void :
 	else : 
 		print("Game over")
 
-func shoot(dir : Vector2) -> void :	
-	var bullet_instance = BULLET_SCENE.instantiate()
+func shoot(dir : Vector2, is_missile : bool = false) -> void :
+	var bullet_instance
+	if not is_missile :	
+		bullet_instance = BULLET_SCENE.instantiate()
+	else :
+		bullet_instance = MISSILE_SCENE.instantiate()
+		print("shoot missile")
 	owner.add_child(bullet_instance)
 	bullet_instance.transform = handgun.get_node("cannon").global_transform
 	# if Input.is_action_pressed("aim") :

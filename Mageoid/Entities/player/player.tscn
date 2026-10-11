@@ -10,57 +10,192 @@ radius = 13.0
 height = 60.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y660y"]
-size = Vector2(22, 51)
-
-[sub_resource type="Animation" id="Animation_m0gmf"]
-length = 0.001
+size = Vector2(15, 37)
 
 [sub_resource type="Animation" id="Animation_y660y"]
-resource_name = "jump"
-loop_mode = 1
-
-[sub_resource type="Animation" id="Animation_qjpfe"]
-resource_name = "idle"
-loop_mode = 1
-
-[sub_resource type="Animation" id="Animation_nqdw5"]
-resource_name = "jump"
-length = 0.2
-
-[sub_resource type="Animation" id="Animation_3we0j"]
-resource_name = "kick"
-length = 1.0333333
-tracks/0/type = "method"
+length = 0.001
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".")
+tracks/0/path = NodePath("Sprite2D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(1.0333333),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"values": [{
-"args": [false],
-"method": &"set_kick"
-}]
+"update": 0,
+"values": [Vector2(0, 3.8146973e-06)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.07708338, 0.07708338)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("hurtbox/CollisionShape2D:shape:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(15, 37)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("hurtbox/CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.5, -4.5)]
 }
 
-[sub_resource type="Animation" id="Animation_q6ntu"]
-resource_name = "run"
-length = 1.2
-loop_mode = 1
+[sub_resource type="Animation" id="Animation_nqdw5"]
+resource_name = "crouch"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 3.8146973e-06), Vector2(0, 7)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.07708338, 0.07708338), Vector2(0.07708338, 0.03708307)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("hurtbox/CollisionShape2D:shape:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(15, 37), Vector2(15, 15)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("hurtbox/CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.001, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2.5, -4.5), Vector2(2.5, 6.5)]
+}
+
+[sub_resource type="Animation" id="Animation_3we0j"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("hurtbox/CollisionShape2D:shape:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(15, 37)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("hurtbox/CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.5, -4.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 3.8146973e-06)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.07708338, 0.07708338)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y660y"]
 _data = {
-&"RESET": SubResource("Animation_m0gmf"),
-&"airborne": SubResource("Animation_y660y"),
-&"idle": SubResource("Animation_qjpfe"),
-&"jump": SubResource("Animation_nqdw5"),
-&"kick": SubResource("Animation_3we0j"),
-&"run": SubResource("Animation_q6ntu")
+&"RESET": SubResource("Animation_y660y"),
+&"crouch": SubResource("Animation_nqdw5"),
+&"idle": SubResource("Animation_3we0j")
 }
 
-[sub_resource type="AnimationRootNode" id="AnimationRootNode_q6ntu"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vso2a"]
+animation = &"crouch"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_q735b"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kyxaw"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_twsei"]
+advance_mode = 2
+advance_expression = "is_crouched"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2xrie"]
+advance_mode = 2
+advance_expression = "!is_crouched"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_q735b"]
+states/crouch/node = SubResource("AnimationNodeAnimation_vso2a")
+states/crouch/position = Vector2(566, 39)
+states/idle/node = SubResource("AnimationNodeAnimation_q735b")
+states/idle/position = Vector2(419, 107)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_kyxaw"), "idle", "crouch", SubResource("AnimationNodeStateMachineTransition_twsei"), "crouch", "idle", SubResource("AnimationNodeStateMachineTransition_2xrie")]
 
 [sub_resource type="QuadMesh" id="QuadMesh_q6ntu"]
 
@@ -70,12 +205,12 @@ script = ExtResource("1_qjpfe")
 health = 99
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1410642879]
-position = Vector2(0, 13.999999)
+position = Vector2(0, 3.8146973e-06)
 scale = Vector2(0.07708338, 0.07708338)
 texture = ExtResource("3_q6ntu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1090372917]
-position = Vector2(0, 3)
+position = Vector2(0, -13)
 shape = SubResource("CapsuleShape2D_gmgay")
 
 [node name="hurtbox" type="Area2D" parent="." unique_id=1259627484]
@@ -83,6 +218,7 @@ collision_layer = 36
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox" unique_id=2066495548]
+position = Vector2(2.5, -4.5)
 shape = SubResource("RectangleShape2D_y660y")
 debug_color = Color(0.22016424, 0.6286104, 0.34133157, 0.41960785)
 
@@ -93,10 +229,12 @@ zoom = Vector2(2, 2)
 libraries/ = SubResource("AnimationLibrary_y660y")
 
 [node name="AnimationTree" type="AnimationTree" parent="AnimationPlayer" unique_id=1388799670]
-tree_root = SubResource("AnimationRootNode_q6ntu")
+root_node = NodePath("../..")
+tree_root = SubResource("AnimationNodeStateMachine_q735b")
+advance_expression_base_node = NodePath("../..")
+anim_player = NodePath("..")
 
 [node name="handgun" type="Node2D" parent="." unique_id=350928604]
-position = Vector2(0, 10)
 
 [node name="cannon" type="Marker2D" parent="handgun" unique_id=192061762]
 position = Vector2(33, 0)
