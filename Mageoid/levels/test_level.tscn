@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://qihgss2rdvg8"]
 
 [ext_resource type="PackedScene" uid="uid://5txt42x7efkl" path="res://Entities/player/player.tscn" id="1_gmgay"]
+[ext_resource type="PackedScene" uid="uid://1hc7t32puenj" path="res://Items/Upgrades/upgrade.tscn" id="3_gmgay"]
 [ext_resource type="PackedScene" uid="uid://cy8irxp5s862h" path="res://Entities/ennemy/gamboo.tscn" id="3_o6mel"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_sjb42"]
@@ -80,3 +81,8 @@ mesh = SubResource("QuadMesh_b3oru")
 [node name="goomba" parent="." unique_id=1099810640 instance=ExtResource("3_o6mel")]
 position = Vector2(928, 444)
 scale = Vector2(2.2800028, 2.2800028)
+
+[node name="super_missile" parent="." unique_id=1858806097 instance=ExtResource("3_gmgay")]
+position = Vector2(-84, 464.99997)
+scale = Vector2(23.825, 23.825)
+type = "weapon"

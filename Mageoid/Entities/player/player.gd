@@ -15,10 +15,15 @@ class_name Player extends Entity
 var max_health : int = 100
 var coyote_time : float = 0.2
 var facing : Vector2 = Vector2.RIGHT
-var available_weapons : Array = ["","missile"]
+var available_weapons : Array = ["missile"]
+var selected_weapon : String
 var weapon_index : int = 0
+
 var max_ammo : int = 10
-var ammo : int = 10
+var ammo : int = max_ammo
+
+var missile_scene : PackedScene = load("res://Entities/player/bullets/missile.tscn")
+
 
 var can_move : bool = true
 var can_jump : bool = true
@@ -27,15 +32,14 @@ var is_crouched : bool = false
 const knockback_force : int = 100
 const invincibility_time : float = 2
 const BULLET_SCENE : PackedScene = preload("res://Entities/player/bullets/bullet.tscn")
-const MISSILE_SCENE : PackedScene = preload("res://Entities/player/bullets/missile.tscn")
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	handgun.visible = false
 	heads_up_display.set_health(health)
 	heads_up_display.set_ammo(ammo)
-	heads_up_display.set_weapon(available_weapons[weapon_index])
+	for weapon in  available_weapons :
+		heads_up_display.add_weapon(weapon)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
@@ -165,8 +169,7 @@ func shoot(dir : Vector2, is_missile : bool = false) -> void :
 	if not is_missile :	
 		bullet_instance = BULLET_SCENE.instantiate()
 	else :
-		bullet_instance = MISSILE_SCENE.instantiate()
-		print("shoot missile")
+		bullet_instance = missile_scene.instantiate()
 	owner.add_child(bullet_instance)
 	bullet_instance.transform = handgun.get_node("cannon").global_transform
 	# if Input.is_action_pressed("aim") :

@@ -22,8 +22,8 @@ offset_left = 122.0
 offset_right = 162.0
 offset_bottom = 23.0
 
-[node name="WeaponLabel" type="Label" parent="." unique_id=1678631411]
+[node name="WeaponContainer" type="HBoxContainer" parent="." unique_id=1002296573]
 layout_mode = 0
-offset_left = 252.0
-offset_right = 292.0
-offset_bottom = 23.0
+offset_left = 193.0
+offset_right = 233.0
+offset_bottom = 40.0

@@ -13,6 +13,7 @@ func _on_upgrade_area_entered(area: Area2D) -> void:
 		"weapon" :
 			if not cplayer.available_weapons.has(name) :
 				cplayer.available_weapons.append(name)
+				cplayer.heads_up_display.add_weapon(name)
 			else :
 				cplayer.max_ammo += 5
 				cplayer.ammo += 5
