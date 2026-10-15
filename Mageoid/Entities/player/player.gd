@@ -93,7 +93,9 @@ func get_input():
 
 	if Input.is_action_just_pressed("weapon_select") :
 		weapon_index = (weapon_index + 1) % available_weapons.size()
-		heads_up_display.set_weapon(available_weapons[weapon_index])
+		selected_weapon = available_weapons[weapon_index]
+		heads_up_display.set_weapon(selected_weapon)
+		missile_scene = set_weapon(selected_weapon)
 
 	if Input.is_action_just_pressed("weapon_switch") :
 		handgun.visible = true
@@ -185,3 +187,6 @@ func _on_idle_timer_timeout() -> void:
 		facing = Vector2.RIGHT
 		handgun.rotation = facing.angle()
 	idle_timer.start()
+
+func set_weapon(weapon_name : String) -> PackedScene :
+	return load("res://Entities/player/bullets/"+weapon_name+".tscn")
