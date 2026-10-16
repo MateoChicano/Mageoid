@@ -40,6 +40,7 @@ func _ready() -> void:
 	heads_up_display.set_ammo(ammo)
 	for weapon in  available_weapons :
 		heads_up_display.add_weapon(weapon)
+	heads_up_display.set_weapon(available_weapons[0])
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
@@ -138,8 +139,13 @@ func get_input():
 		idle_timer.start()
 		handgun.visible = true
 		if Input.is_action_pressed("weapon_switch") :
-			if ammo > 0 :
-				ammo-=1
+			var ammo_consumed : int = 1
+			match selected_weapon :
+				"super_missile" :
+					ammo_consumed = 10
+
+			if ammo >= ammo_consumed :
+				ammo-=ammo_consumed
 				heads_up_display.set_ammo(ammo)
 				shoot(facing, true)
 				return
@@ -174,9 +180,6 @@ func shoot(dir : Vector2, is_missile : bool = false) -> void :
 		bullet_instance = missile_scene.instantiate()
 	owner.add_child(bullet_instance)
 	bullet_instance.transform = handgun.get_node("cannon").global_transform
-	# if Input.is_action_pressed("aim") :
-	# 	dir = (get_global_mouse_position() - handgun.global_position).normalized()
-	# else :
 	bullet_instance.position = handgun.get_node("cannon").global_position + Vector2(handgun_pos, 0)
 	bullet_instance.rotation = dir.angle()
 
@@ -190,3 +193,4 @@ func _on_idle_timer_timeout() -> void:
 
 func set_weapon(weapon_name : String) -> PackedScene :
 	return load("res://Entities/player/bullets/"+weapon_name+".tscn")
+

@@ -1,11 +1,18 @@
 extends Node2D
 
+@export var type : String
 var types : Array = ["health", "ammo"]
 
-
+func _ready() -> void:
+	self.type = types[randi() % types.size()]
+	match type :
+		"health" :
+			$MeshInstance2D.modulate = Color.GREEN
+		"ammo" :
+			$MeshInstance2D.modulate = Color.RED
+			
 func _on_pickup_area_entered(area: Area2D) -> void:
 	var cplayer = area.owner
-	var type = types[randi() % types.size()]
 	var amount_restored : int = 0
 	match type :
 		"health" :
