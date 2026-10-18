@@ -8,18 +8,19 @@ class_name Player extends Entity
 @onready var body_sprite : Sprite2D = $Sprite2D
 @onready var hand_sprite : Sprite2D = $handgun/Sprite2D
 @onready var handgun_pos : float = handgun.position.x
-@onready var idle_timer: Timer = $idle_timer
+@onready var idle_timer: Timer = $Timers/idle_timer
+@onready var charge_timer : Timer = $Timers/charge_timer
 @onready var heads_up_display : Control = $HeadsUpDisplay
+@onready var charge_ball : Node2D = $handgun/cannon/charge_ball
 
 
 var max_health : int = 100
-var coyote_time : float = 0.2
 var facing : Vector2 = Vector2.RIGHT
 var available_weapons : Array = ["missile"]
 var selected_weapon : String
 var weapon_index : int = 0
 
-var max_ammo : int = 10
+var max_ammo : int = 100
 var ammo : int = max_ammo
 
 var missile_scene : PackedScene = load("res://Entities/player/bullets/missile.tscn")
@@ -28,13 +29,16 @@ var missile_scene : PackedScene = load("res://Entities/player/bullets/missile.ts
 var can_move : bool = true
 var can_jump : bool = true
 var is_crouched : bool = false
+var is_charging : bool = false
 
 const knockback_force : int = 100
 const invincibility_time : float = 2
 const BULLET_SCENE : PackedScene = preload("res://Entities/player/bullets/bullet.tscn")
+const CHARGED_BULET_SCENE : PackedScene = preload("res://Entities/player/bullets/charge_bullet.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	charge_ball.visible = false
 	handgun.visible = false
 	heads_up_display.set_health(health)
 	heads_up_display.set_ammo(ammo)
@@ -131,12 +135,11 @@ func get_input():
 
 	if Input.is_action_just_released("aim"):
 		handgun.rotation = facing.angle()
-
-
-
+	
 
 	if Input.is_action_just_pressed("attack") :
 		idle_timer.start()
+		charge_timer.start()
 		handgun.visible = true
 		if Input.is_action_pressed("weapon_switch") :
 			var ammo_consumed : int = 1
@@ -147,7 +150,7 @@ func get_input():
 			if ammo >= ammo_consumed :
 				ammo-=ammo_consumed
 				heads_up_display.set_ammo(ammo)
-				shoot(facing, true)
+				shoot(facing, "missile")
 				return
 			else :
 				return
@@ -155,34 +158,60 @@ func get_input():
 			shoot(input_direction)
 		else :
 			shoot(facing)
-	
+
+	if Input.is_action_pressed("attack") :
+		is_charging = true
+		charge_ball.visible = true
+		charge_ball.scale = Vector2(1/charge_timer.time_left, 1/charge_timer.time_left)
+		if charge_ball.scale > Vector2(10,10):
+			charge_ball.scale = Vector2(10,10)
+			blink()
+
+			
+
+
+	if Input.is_action_just_released("attack") and is_charging:
+		is_charging = false
+		charge_ball.visible = false
+
+		if charge_timer.is_stopped():
+			# Timer finished: held long enough.
+			var dir: Vector2 = input_direction if input_direction else facing
+			shoot(dir, "charge")
+		else:
+			# Released too soon; cancel the charge.
+			charge_timer.stop()
+
+
+
 
 func hurt_box_entered(body : Node2D) -> void :
 	if health - body.damage > 0 :
 		var knockback_dir : Vector2 = Vector2(facing.x*-1, -1).normalized()
-		velocity.x = knockback_dir.x * 2000
-		velocity.y = knockback_dir.y * 700
+		velocity.x = knockback_dir.x * 5000
+		velocity.y = knockback_dir.y * 500
 		take_damage(body.damage)
 		heads_up_display.set_health(health)
 		for i in range(3):
-			body_sprite.modulate.v = 15
-			await get_tree().create_timer(0.05).timeout
-			body_sprite.modulate.v = 1
-			await get_tree().create_timer(0.05).timeout
+			await blink()
 	else : 
 		print("Game over")
 
-func shoot(dir : Vector2, is_missile : bool = false) -> void :
+func shoot(dir : Vector2, modifier : String = "") -> void :
 	var bullet_instance
-	if not is_missile :	
-		bullet_instance = BULLET_SCENE.instantiate()
+	if modifier :
+		match modifier :
+			"missile" :
+				bullet_instance = missile_scene.instantiate()
+			"charge" :
+				bullet_instance = CHARGED_BULET_SCENE.instantiate()
+				bullet_instance.scale = Vector2(2, 2)
 	else :
-		bullet_instance = missile_scene.instantiate()
+		bullet_instance = BULLET_SCENE.instantiate()
 	owner.add_child(bullet_instance)
 	bullet_instance.transform = handgun.get_node("cannon").global_transform
 	bullet_instance.position = handgun.get_node("cannon").global_position + Vector2(handgun_pos, 0)
 	bullet_instance.rotation = dir.angle()
-
 
 func _on_idle_timer_timeout() -> void:
 	handgun.visible = false
@@ -194,3 +223,8 @@ func _on_idle_timer_timeout() -> void:
 func set_weapon(weapon_name : String) -> PackedScene :
 	return load("res://Entities/player/bullets/"+weapon_name+".tscn")
 
+func blink() -> void :
+	body_sprite.modulate.v = 15
+	await get_tree().create_timer(0.05).timeout
+	body_sprite.modulate.v = 1
+	await get_tree().create_timer(0.05).timeout

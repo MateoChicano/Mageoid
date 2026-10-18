@@ -197,7 +197,7 @@ states/idle/node = SubResource("AnimationNodeAnimation_q735b")
 states/idle/position = Vector2(419, 107)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_kyxaw"), "idle", "crouch", SubResource("AnimationNodeStateMachineTransition_twsei"), "crouch", "idle", SubResource("AnimationNodeStateMachineTransition_2xrie")]
 
-[sub_resource type="QuadMesh" id="QuadMesh_q6ntu"]
+[sub_resource type="SphereMesh" id="SphereMesh_rt2cs"]
 
 [node name="player" type="CharacterBody2D" unique_id=817353588]
 collision_layer = 0
@@ -237,23 +237,18 @@ anim_player = NodePath("..")
 [node name="handgun" type="Node2D" parent="." unique_id=350928604]
 
 [node name="cannon" type="Marker2D" parent="handgun" unique_id=192061762]
-position = Vector2(33, 0)
+position = Vector2(30, 0)
+
+[node name="charge_ball" type="MeshInstance2D" parent="handgun/cannon" unique_id=1848261379]
+modulate = Color(1, 1, 0, 1)
+position = Vector2(2.9999998, 0.99999994)
+scale = Vector2(10, 10)
+mesh = SubResource("SphereMesh_rt2cs")
 
 [node name="Sprite2D" type="Sprite2D" parent="handgun" unique_id=1505269912]
-position = Vector2(24, 2)
+position = Vector2(22, 0)
 scale = Vector2(0.02777777, 0.02777777)
 texture = ExtResource("4_y660y")
-
-[node name="MeshInstance2D" type="MeshInstance2D" parent="handgun" unique_id=1765084846]
-visible = false
-position = Vector2(66.875, 0)
-scale = Vector2(131.75, 1)
-mesh = SubResource("QuadMesh_q6ntu")
-
-[node name="idle_timer" type="Timer" parent="." unique_id=2049284299]
-wait_time = 5.0
-one_shot = true
-autostart = true
 
 [node name="HeadsUpDisplay" parent="." unique_id=108865745 instance=ExtResource("4_nqdw5")]
 offset_left = -288.0
@@ -261,5 +256,15 @@ offset_top = -162.0
 offset_right = -288.0
 offset_bottom = -162.0
 
+[node name="Timers" type="Node2D" parent="." unique_id=402764336]
+position = Vector2(33, 0)
+
+[node name="idle_timer" type="Timer" parent="Timers" unique_id=2049284299]
+wait_time = 5.0
+one_shot = true
+
+[node name="charge_timer" type="Timer" parent="Timers" unique_id=1756234448]
+one_shot = true
+
 [connection signal="body_entered" from="hurtbox" to="." method="hurt_box_entered"]
-[connection signal="timeout" from="idle_timer" to="." method="_on_idle_timer_timeout"]
+[connection signal="timeout" from="Timers/idle_timer" to="." method="_on_idle_timer_timeout"]

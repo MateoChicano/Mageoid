@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://dio4u8yf1af87"]
+
+[ext_resource type="Script" uid="uid://bn2s1gqfhpepx" path="res://Entities/player/bullets/bullet.gd" id="1_f503v"]
+[ext_resource type="Texture2D" uid="uid://crfufjfmellov" path="res://Entities/player/bullets/Bullet_base.png" id="2_ju0fj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_twgj4"]
+size = Vector2(20, 10)
+
+[node name="Node2D" type="Node2D" unique_id=1369955138]
+script = ExtResource("1_f503v")
+speed = 1500
+damage = 5
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1151578564]
+position = Vector2(-0.5000005, 1.1875007)
+scale = Vector2(0.048, 0.041)
+texture = ExtResource("2_ju0fj")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=455993422]
+collision_layer = 2
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=269284327]
+scale = Vector2(1.5, 1.5)
+shape = SubResource("RectangleShape2D_twgj4")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_bullet_body_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_bullet_body_entered"]
