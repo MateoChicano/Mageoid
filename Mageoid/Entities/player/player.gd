@@ -160,12 +160,16 @@ func get_input():
 			shoot(facing)
 
 	if Input.is_action_pressed("attack") :
-		is_charging = true
-		charge_ball.visible = true
-		charge_ball.scale = Vector2(1/charge_timer.time_left, 1/charge_timer.time_left)
-		if charge_ball.scale > Vector2(10,10):
-			charge_ball.scale = Vector2(10,10)
-			blink()
+		if Input.is_action_pressed("weapon_switch") :
+			pass
+		else :
+			if charge_timer.time_left < 0.5 :
+				is_charging = true
+				charge_ball.visible = true
+				charge_ball.scale = Vector2(1/charge_timer.time_left, 1/charge_timer.time_left)
+				if charge_ball.scale > Vector2(10,10):
+					charge_ball.scale = Vector2(10,10)
+					blink()
 
 			
 
