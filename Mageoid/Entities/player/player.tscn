@@ -1,13 +1,14 @@
 [gd_scene format=3 uid="uid://5txt42x7efkl"]
 
 [ext_resource type="Script" uid="uid://0nnho7r0uuo" path="res://Entities/player/player.gd" id="1_qjpfe"]
+[ext_resource type="Texture2D" uid="uid://cywsfspcetwlg" path="res://Entities/player/mageoid_morph_hat.png" id="2_y660y"]
 [ext_resource type="Texture2D" uid="uid://bja5uiu08qqa3" path="res://Entities/player/Mageoid_idle.png" id="3_q6ntu"]
 [ext_resource type="PackedScene" uid="uid://csa7vh4snrxoa" path="res://Interface/HeadsUpDisplay.tscn" id="4_nqdw5"]
 [ext_resource type="Texture2D" uid="uid://oxvqidgcrght" path="res://Entities/player/Mageoid_hand.png" id="4_y660y"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gmgay"]
-radius = 13.0
-height = 60.0
+radius = 12.0
+height = 24.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y660y"]
 size = Vector2(15, 37)
@@ -62,6 +63,78 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(2.5, -4.5)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:texture")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_y660y")]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CollisionShape2D:shape:radius")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [12.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CollisionShape2D:shape:height")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [24.0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CollisionShape2D:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, -5)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("CollisionShape2D:shape")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("CapsuleShape2D_gmgay")]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("hurtbox/CollisionShape2D:shape")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("RectangleShape2D_y660y")]
+}
 
 [sub_resource type="Animation" id="Animation_nqdw5"]
 resource_name = "crouch"
@@ -114,6 +187,66 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(2.5, -4.5), Vector2(2.5, 6.5)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:texture")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_q6ntu")]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CollisionShape2D:shape")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("CapsuleShape2D_gmgay")]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CollisionShape2D:shape:radius")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [12.0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CollisionShape2D:shape:height")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [56.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("CollisionShape2D:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, -10)]
+}
 
 [sub_resource type="Animation" id="Animation_3we0j"]
 resource_name = "idle"
@@ -165,12 +298,185 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(0.07708338, 0.07708338)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:texture")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_q6ntu")]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CollisionShape2D:shape")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("CapsuleShape2D_gmgay")]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CollisionShape2D:shape:radius")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [12.0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CollisionShape2D:shape:height")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [56.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("CollisionShape2D:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, -10)]
+}
+
+[sub_resource type="Animation" id="Animation_vso2a"]
+resource_name = "morph_hat"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_y660y")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:shape:radius")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [12.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:shape:height")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [24.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, -5)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("hurtbox/CollisionShape2D:shape")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("RectangleShape2D_y660y")]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("hurtbox/CollisionShape2D:shape:size")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(10, 13)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("hurtbox/CollisionShape2D:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -0.5)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Sprite2D:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.07708338, 0.07708338)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Sprite2D:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 3.8146973e-06)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y660y"]
 _data = {
 &"RESET": SubResource("Animation_y660y"),
 &"crouch": SubResource("Animation_nqdw5"),
-&"idle": SubResource("Animation_3we0j")
+&"idle": SubResource("Animation_3we0j"),
+&"morph_hat": SubResource("Animation_vso2a")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vso2a"]
@@ -178,6 +484,9 @@ animation = &"crouch"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_q735b"]
 animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_y660y"]
+animation = &"morph_hat"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kyxaw"]
 advance_mode = 2
@@ -190,12 +499,22 @@ advance_expression = "is_crouched"
 advance_mode = 2
 advance_expression = "!is_crouched"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3we0j"]
+advance_mode = 2
+advance_expression = "is_morph"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vso2a"]
+advance_mode = 2
+advance_expression = "not self.is_morph"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_q735b"]
 states/crouch/node = SubResource("AnimationNodeAnimation_vso2a")
 states/crouch/position = Vector2(566, 39)
 states/idle/node = SubResource("AnimationNodeAnimation_q735b")
 states/idle/position = Vector2(419, 107)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_kyxaw"), "idle", "crouch", SubResource("AnimationNodeStateMachineTransition_twsei"), "crouch", "idle", SubResource("AnimationNodeStateMachineTransition_2xrie")]
+states/morph_hat/node = SubResource("AnimationNodeAnimation_y660y")
+states/morph_hat/position = Vector2(561, 214)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_kyxaw"), "idle", "crouch", SubResource("AnimationNodeStateMachineTransition_twsei"), "crouch", "idle", SubResource("AnimationNodeStateMachineTransition_2xrie"), "crouch", "morph_hat", SubResource("AnimationNodeStateMachineTransition_3we0j"), "morph_hat", "crouch", SubResource("AnimationNodeStateMachineTransition_vso2a")]
 
 [sub_resource type="SphereMesh" id="SphereMesh_rt2cs"]
 
@@ -207,10 +526,10 @@ health = 99
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1410642879]
 position = Vector2(0, 3.8146973e-06)
 scale = Vector2(0.07708338, 0.07708338)
-texture = ExtResource("3_q6ntu")
+texture = ExtResource("2_y660y")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1090372917]
-position = Vector2(0, -13)
+position = Vector2(1, -5)
 shape = SubResource("CapsuleShape2D_gmgay")
 
 [node name="hurtbox" type="Area2D" parent="." unique_id=1259627484]

@@ -29,6 +29,7 @@ var missile_scene : PackedScene = load("res://Entities/player/bullets/missile.ts
 var can_move : bool = true
 var can_jump : bool = true
 var is_crouched : bool = false
+var is_morph : bool = false
 var is_charging : bool = false
 
 const knockback_force : int = 100
@@ -77,7 +78,11 @@ func get_input():
 		hand_sprite.flip_v = false
 
 	if Input.is_action_pressed("up") :
-		is_crouched = false
+		if is_morph :
+			is_morph = false
+			is_crouched = true
+		else :
+			is_crouched = false
 		idle_timer.start()
 		handgun.visible = true
 		if facing == Vector2.LEFT :
@@ -87,7 +92,11 @@ func get_input():
 		facing = Vector2.UP
 	
 	if Input.is_action_just_pressed("down") :
-		is_crouched = true
+		if is_crouched :
+			is_crouched = false
+			is_morph = true
+		else :
+			is_crouched = true
 
 	if can_move :
 		self.velocity.x = lerp(self.velocity.x, horizontal_input * speed, 0.25)
