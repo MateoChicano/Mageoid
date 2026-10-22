@@ -11,11 +11,12 @@ func _on_upgrade_area_entered(area: Area2D) -> void:
 			cplayer.health += 100
 			cplayer.heads_up_display.set_health(cplayer.health)
 		"weapon" :
-			if not cplayer.available_weapons.has(name) :
-				cplayer.available_weapons.append(name)
+			var chandgun = cplayer.get_node("handgun")
+			if not chandgun.available_weapons.has(name) :
+				chandgun.available_weapons.append(name)
 				cplayer.heads_up_display.add_weapon(name)
 			else :
-				cplayer.max_ammo += 5
-				cplayer.ammo += 5
-				cplayer.heads_up_display.set_ammo(cplayer.ammo)
+				chandgun.max_ammo += 5
+				chandgun.ammo += 5
+				cplayer.heads_up_display.set_ammo(chandgun.ammo)
 	self.queue_free()

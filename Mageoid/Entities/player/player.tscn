@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://0nnho7r0uuo" path="res://Entities/player/player.gd" id="1_qjpfe"]
 [ext_resource type="Texture2D" uid="uid://cywsfspcetwlg" path="res://Entities/player/mageoid_morph_hat.png" id="2_y660y"]
 [ext_resource type="Texture2D" uid="uid://bja5uiu08qqa3" path="res://Entities/player/Mageoid_idle.png" id="3_q6ntu"]
+[ext_resource type="Script" uid="uid://d2ly7jsiln137" path="res://Entities/player/handgun.gd" id="4_3we0j"]
 [ext_resource type="PackedScene" uid="uid://csa7vh4snrxoa" path="res://Interface/HeadsUpDisplay.tscn" id="4_nqdw5"]
 [ext_resource type="Texture2D" uid="uid://oxvqidgcrght" path="res://Entities/player/Mageoid_hand.png" id="4_y660y"]
 
@@ -521,6 +522,8 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 [node name="player" type="CharacterBody2D" unique_id=817353588]
 collision_layer = 0
 script = ExtResource("1_qjpfe")
+speed = null
+jumpforce = null
 health = 99
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1410642879]
@@ -554,6 +557,7 @@ advance_expression_base_node = NodePath("../..")
 anim_player = NodePath("..")
 
 [node name="handgun" type="Node2D" parent="." unique_id=350928604]
+script = ExtResource("4_3we0j")
 
 [node name="cannon" type="Marker2D" parent="handgun" unique_id=192061762]
 position = Vector2(30, 0)
