@@ -144,3 +144,6 @@ func blink() -> void :
 
 func get_facing() -> Vector2 :
 	return facing
+
+func get_morph() -> bool :
+	return is_morph

@@ -50,6 +50,8 @@ shape = SubResource("RectangleShape2D_gmgay")
 
 [node name="player" parent="." unique_id=1678342468 instance=ExtResource("1_gmgay")]
 position = Vector2(129, 353)
+speed = 300
+jumpforce = 700
 health = 100
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=114649955]

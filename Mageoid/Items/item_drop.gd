@@ -22,9 +22,10 @@ func _on_pickup_area_entered(area: Area2D) -> void:
 				cplayer.health = cplayer.max_health
 			cplayer.heads_up_display.set_health(cplayer.health)
 		"ammo" :
+			var cweapon = cplayer.get_node("handgun")
 			amount_restored = 5
-			cplayer.ammo += 5
-			if cplayer.ammo > cplayer.max_ammo :
-				cplayer.ammo = cplayer.max_ammo
-			cplayer.heads_up_display.set_ammo(cplayer.ammo)
+			cweapon.ammo += 5
+			if cweapon.ammo > cweapon.max_ammo :
+				cweapon.ammo = cweapon.max_ammo
+			cplayer.heads_up_display.set_ammo(cweapon.ammo)
 	self.queue_free()

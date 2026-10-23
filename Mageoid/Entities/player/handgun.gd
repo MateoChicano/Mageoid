@@ -4,7 +4,6 @@ extends Node2D
 @onready var idle_timer : Timer = player.get_node("Timers/idle_timer")
 @onready var charge_timer : Timer = player.get_node("Timers/charge_timer")
 @onready var heads_up_display : Control = player.get_node("HeadsUpDisplay")
-# @onready var facing : Vector2 = player.get_facing()
 
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var handgun_pos : float = self.position.x
@@ -12,6 +11,7 @@ extends Node2D
 
 const BULLET_SCENE : PackedScene = preload("res://Entities/player/bullets/bullet.tscn")
 const CHARGED_BULET_SCENE : PackedScene = preload("res://Entities/player/bullets/charge_bullet.tscn")
+const BOMB_SCENE : PackedScene = preload("res://Entities/player/bullets/bomb.tscn")
 var missile_scene : PackedScene = load("res://Entities/player/bullets/missile.tscn")
 
 
@@ -41,26 +41,31 @@ func get_input() -> void :
 	var input_direction = Input.get_vector("left", "right", "up", "down")
 
 	if Input.is_action_just_pressed("attack") :
-		idle_timer.start()
-		charge_timer.start()
-		self.visible = true
-		if Input.is_action_pressed("weapon_switch") :
-			var ammo_consumed : int = 1
-			match selected_weapon :
-				"super_missile" :
-					ammo_consumed = 10
-
-			if ammo >= ammo_consumed :
-				ammo-=ammo_consumed
-				heads_up_display.set_ammo(ammo)
-				shoot(player.get_facing(), "missile")
-				return
-			else :
-				return
-		if input_direction :
-			shoot(input_direction)
+		if player.get_morph() :
+			var bomb_instance = BOMB_SCENE.instantiate()
+			bomb_instance.position = player.position
+			get_tree().current_scene.add_child(bomb_instance)
 		else :
-			shoot(player.get_facing())
+			idle_timer.start()
+			charge_timer.start()
+			self.visible = true
+			if Input.is_action_pressed("weapon_switch") :
+				var ammo_consumed : int = 1
+				match selected_weapon :
+					"super_missile" :
+						ammo_consumed = 10
+
+				if ammo >= ammo_consumed :
+					ammo-=ammo_consumed
+					heads_up_display.set_ammo(ammo)
+					shoot(player.get_facing(), "missile")
+					return
+				else :
+					return
+			if input_direction :
+				shoot(input_direction)
+			else :
+				shoot(player.get_facing())
 
 	if Input.is_action_pressed("attack") :
 		if Input.is_action_pressed("weapon_switch") :
