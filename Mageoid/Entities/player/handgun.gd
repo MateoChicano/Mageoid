@@ -42,6 +42,7 @@ func get_input() -> void :
 
 	if Input.is_action_just_pressed("attack") :
 		if player.get_morph() :
+			is_charging = false
 			var bomb_instance = BOMB_SCENE.instantiate()
 			bomb_instance.position = player.position
 			get_tree().current_scene.add_child(bomb_instance)
@@ -68,7 +69,7 @@ func get_input() -> void :
 				shoot(player.get_facing())
 
 	if Input.is_action_pressed("attack") :
-		if Input.is_action_pressed("weapon_switch") :
+		if Input.is_action_pressed("weapon_switch") or player.get_morph():
 			pass
 		else :
 			if charge_timer.time_left < 0.5 :

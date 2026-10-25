@@ -33,7 +33,6 @@ func _physics_process(delta: float) -> void:
 	if ! self.is_on_floor():
 		self.velocity.y += self.GRAVITY * delta
 
-	can_jump = is_on_floor()
 	get_input()
 	move_and_slide()
 
@@ -61,6 +60,7 @@ func get_input():
 		if is_morph :
 			is_morph = false
 			is_crouched = true
+			can_jump = true
 		else :
 			is_crouched = false
 	
@@ -78,13 +78,15 @@ func get_input():
 		if is_crouched :
 			is_crouched = false
 			is_morph = true
+			can_jump = false
 		else :
 			is_crouched = true
 
 	if can_move :
 		self.velocity.x = lerp(self.velocity.x, horizontal_input * speed, 0.25)
 	
-	if (Input.is_action_just_pressed("jump")) and can_jump :
+	if (Input.is_action_just_pressed("jump")) and self.is_on_floor() and can_jump:
+
 		self.velocity.y -= jumpforce
 		is_crouched = false
 
