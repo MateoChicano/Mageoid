@@ -19,4 +19,5 @@ func _on_upgrade_area_entered(area: Area2D) -> void:
 				chandgun.max_ammo += 5
 				chandgun.ammo += 5
 				cplayer.heads_up_display.set_ammo(chandgun.ammo)
+			
 	self.queue_free()

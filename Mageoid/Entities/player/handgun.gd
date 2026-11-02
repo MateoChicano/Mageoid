@@ -1,5 +1,7 @@
 extends Node2D
 
+@export var default_weapon : String
+
 @onready var player : Player = self.get_parent()
 @onready var idle_timer : Timer = player.get_node("Timers/idle_timer")
 @onready var charge_timer : Timer = player.get_node("Timers/charge_timer")
@@ -9,7 +11,7 @@ extends Node2D
 @onready var handgun_pos : float = self.position.x
 @onready var charge_ball : Node2D = $cannon/charge_ball
 
-const BULLET_SCENE : PackedScene = preload("res://Entities/player/bullets/bullet.tscn")
+@onready var bullet_scene : PackedScene = load("res://Entities/player/bullets/"+default_weapon+".tscn")
 const CHARGED_BULET_SCENE : PackedScene = preload("res://Entities/player/bullets/charge_bullet.tscn")
 const BOMB_SCENE : PackedScene = preload("res://Entities/player/bullets/bomb.tscn")
 var missile_scene : PackedScene = load("res://Entities/player/bullets/missile.tscn")
@@ -117,7 +119,7 @@ func shoot(dir : Vector2, modifier : String = "") -> void :
 				bullet_instance = CHARGED_BULET_SCENE.instantiate()
 				bullet_instance.scale = Vector2(2, 2)
 	else :
-		bullet_instance = BULLET_SCENE.instantiate()
+		bullet_instance = bullet_scene.instantiate()
 	get_tree().current_scene.add_child(bullet_instance)
 	bullet_instance.transform = self.get_node("cannon").global_transform
 	bullet_instance.position = self.get_node("cannon").global_position + Vector2(handgun_pos, 0)

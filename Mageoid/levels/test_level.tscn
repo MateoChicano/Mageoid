@@ -50,8 +50,6 @@ shape = SubResource("RectangleShape2D_gmgay")
 
 [node name="player" parent="." unique_id=1678342468 instance=ExtResource("1_gmgay")]
 position = Vector2(129, 353)
-speed = 300
-jumpforce = 700
 health = 100
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=114649955]
@@ -81,6 +79,10 @@ scale = Vector2(11.715084, -38.659126)
 mesh = SubResource("QuadMesh_b3oru")
 
 [node name="goomba" parent="." unique_id=1099810640 instance=ExtResource("3_o6mel")]
+position = Vector2(621, 436)
+scale = Vector2(2.2800028, 2.2800028)
+
+[node name="goomba2" parent="." unique_id=9577043 instance=ExtResource("3_o6mel")]
 position = Vector2(928, 444)
 scale = Vector2(2.2800028, 2.2800028)
 
@@ -88,3 +90,5 @@ scale = Vector2(2.2800028, 2.2800028)
 position = Vector2(-84, 464.99997)
 scale = Vector2(23.825, 23.825)
 type = "weapon"
+
+[editable path="player"]

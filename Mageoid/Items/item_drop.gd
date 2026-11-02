@@ -17,7 +17,7 @@ func _on_pickup_area_entered(area: Area2D) -> void:
 	match type :
 		"health" :
 			amount_restored = 20
-			cplayer.max_health += amount_restored
+			cplayer.health += amount_restored
 			if cplayer.health + amount_restored > cplayer.max_health :
 				cplayer.health = cplayer.max_health
 			cplayer.heads_up_display.set_health(cplayer.health)
