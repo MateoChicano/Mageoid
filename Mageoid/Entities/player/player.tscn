@@ -556,7 +556,6 @@ anim_player = NodePath("..")
 
 [node name="handgun" type="Node2D" parent="." unique_id=350928604]
 script = ExtResource("4_3we0j")
-default_weapon = "plasma"
 
 [node name="cannon" type="Marker2D" parent="handgun" unique_id=192061762]
 position = Vector2(30, 0)

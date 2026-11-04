@@ -10,7 +10,6 @@ func _ready() -> void:
 
 
 func explode() -> void :
-	print("boom")
 	explode_zone.disabled = false
 	animationPlayer.play("explode")
 

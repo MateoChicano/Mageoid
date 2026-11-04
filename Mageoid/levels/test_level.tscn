@@ -86,9 +86,14 @@ scale = Vector2(2.2800028, 2.2800028)
 position = Vector2(928, 444)
 scale = Vector2(2.2800028, 2.2800028)
 
-[node name="super_missile" parent="." unique_id=1858806097 instance=ExtResource("3_gmgay")]
+[node name="super missile" parent="." unique_id=1858806097 instance=ExtResource("3_gmgay")]
 position = Vector2(-84, 464.99997)
 scale = Vector2(23.825, 23.825)
-type = "weapon"
+type = 1
+
+[node name="lightning" parent="." unique_id=1036936353 instance=ExtResource("3_gmgay")]
+position = Vector2(6, 432)
+scale = Vector2(21.715, 21.715)
+type = 2
 
 [editable path="player"]

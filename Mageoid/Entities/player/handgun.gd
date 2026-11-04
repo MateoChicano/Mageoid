@@ -1,6 +1,14 @@
 extends Node2D
 
-@export var default_weapon : String
+enum Bullets {
+	BULLET ,
+	FIRE,
+	ICE,
+	ARCANE,
+	LIGHTNING,
+}
+
+@export var default_bullet : Bullets
 
 @onready var player : Player = self.get_parent()
 @onready var idle_timer : Timer = player.get_node("Timers/idle_timer")
@@ -11,14 +19,15 @@ extends Node2D
 @onready var handgun_pos : float = self.position.x
 @onready var charge_ball : Node2D = $cannon/charge_ball
 
-@onready var bullet_scene : PackedScene = load("res://Entities/player/bullets/"+default_weapon+".tscn")
+var bullet_scene : PackedScene
+
 const CHARGED_BULET_SCENE : PackedScene = preload("res://Entities/player/bullets/charge_bullet.tscn")
 const BOMB_SCENE : PackedScene = preload("res://Entities/player/bullets/bomb.tscn")
 var missile_scene : PackedScene = load("res://Entities/player/bullets/missile.tscn")
 
-
+var current_bullet : String
 var available_weapons : Array = ["missile"]
-var selected_weapon : String
+var current_weapon : String
 var weapon_index : int = 0
 
 var max_ammo : int = 100
@@ -33,6 +42,19 @@ func _ready() -> void:
 		heads_up_display.add_weapon(weapon)
 	heads_up_display.set_ammo(ammo)
 	heads_up_display.set_weapon(available_weapons[0])
+
+	match default_bullet :
+		Bullets.BULLET :
+			current_bullet = "bullet"
+		Bullets.FIRE :
+			current_bullet = "fire"
+		Bullets.ICE :
+			current_bullet = "ice"
+		Bullets.ARCANE :
+			current_bullet = "arcane"
+		Bullets.LIGHTNING :
+			current_bullet = "lightning"
+	set_bullet(current_bullet)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(_delta: float) -> void:
@@ -54,7 +76,7 @@ func get_input() -> void :
 			self.visible = true
 			if Input.is_action_pressed("weapon_switch") :
 				var ammo_consumed : int = 1
-				match selected_weapon :
+				match current_weapon :
 					"super_missile" :
 						ammo_consumed = 10
 
@@ -76,6 +98,7 @@ func get_input() -> void :
 		else :
 			if charge_timer.time_left < 0.5 :
 				is_charging = true
+				charge_ball.modulate = bullet_scene.instantiate().modulate
 				charge_ball.visible = true
 				charge_ball.scale = Vector2(1/charge_timer.time_left, 1/charge_timer.time_left)
 				if charge_ball.scale > Vector2(10,10):
@@ -84,9 +107,9 @@ func get_input() -> void :
 
 	if Input.is_action_just_pressed("weapon_select") :
 		weapon_index = (weapon_index + 1) % available_weapons.size()
-		selected_weapon = available_weapons[weapon_index]
-		heads_up_display.set_weapon(selected_weapon)
-		missile_scene = set_weapon(selected_weapon)
+		current_weapon = available_weapons[weapon_index]
+		heads_up_display.set_weapon(current_weapon)
+		missile_scene = set_weapon(current_weapon)
 
 	if Input.is_action_just_pressed("weapon_switch") :
 		self.visible = true
@@ -127,3 +150,6 @@ func shoot(dir : Vector2, modifier : String = "") -> void :
 
 func set_weapon(weapon_name : String) -> PackedScene :
 	return load("res://Entities/player/bullets/"+weapon_name+".tscn")
+
+func set_bullet(bullet_name : String) -> void :
+	bullet_scene = load("res://Entities/player/bullets/"+bullet_name+".tscn")
