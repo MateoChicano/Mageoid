@@ -36,7 +36,7 @@ func _physics_process(delta: float) -> void:
 	get_input()
 	move_and_slide()
 
-func get_input():
+func get_input() -> void:
 	
 	var horizontal_input = Input.get_axis("left", "right")
 	var input_direction = Input.get_vector("left", "right", "up", "down")
@@ -85,10 +85,24 @@ func get_input():
 	if can_move :
 		self.velocity.x = lerp(self.velocity.x, horizontal_input * speed, 0.25)
 	
-	if (Input.is_action_just_pressed("jump")) and self.is_on_floor() and can_jump:
-
-		self.velocity.y -= jumpforce
+	if (Input.is_action_just_pressed("jump")):
 		is_crouched = false
+		if self.is_on_floor() :
+			self.velocity.y = -jumpforce
+		if self.is_on_wall() :
+			self.velocity.y = -jumpforce
+			body_sprite.flip_h = !body_sprite.flip_h
+			if facing == Vector2.LEFT :
+				self.velocity.x += jumpforce
+			else :
+				self.velocity.x -= jumpforce
+		if is_morph : 
+			pass
+	if (Input.is_action_just_released("jump")):
+		if self.velocity.y < -jumpforce / 3. :
+			self.velocity.y = -jumpforce / 3.
+	
+		
 
 	if Input.is_action_pressed("aim") :
 		idle_timer.start()

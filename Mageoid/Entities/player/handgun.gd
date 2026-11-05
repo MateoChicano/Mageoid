@@ -109,7 +109,6 @@ func get_input() -> void :
 	if Input.is_action_just_pressed("weapon_select") :
 		weapon_index = (weapon_index + 1) % available_weapons.size()
 		current_weapon = available_weapons[weapon_index]
-		print(current_weapon)
 		heads_up_display.set_weapon(current_weapon)
 		missile_scene = set_weapon(current_weapon)
 
