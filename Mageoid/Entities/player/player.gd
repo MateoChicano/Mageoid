@@ -72,7 +72,7 @@ func get_input():
 			handgun.sprite.flip_v = true
 		else :
 			handgun.sprite.flip_v = false
-		facing = Vector2.UP
+		# facing = Vector2.UP
 	
 	if Input.is_action_just_pressed("down") :
 		if is_crouched :

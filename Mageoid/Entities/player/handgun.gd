@@ -26,7 +26,7 @@ const BOMB_SCENE : PackedScene = preload("res://Entities/player/bullets/bomb.tsc
 var missile_scene : PackedScene = load("res://Entities/player/bullets/missile.tscn")
 
 var current_bullet : String
-var available_weapons : Array = ["missile"]
+var available_weapons : Array = ["Missile"]
 var current_weapon : String
 var weapon_index : int = 0
 
@@ -63,7 +63,8 @@ func _physics_process(_delta: float) -> void:
 func get_input() -> void :
 
 	var input_direction = Input.get_vector("left", "right", "up", "down")
-
+	if !input_direction :
+		self.rotation = player.get_facing().angle()
 	if Input.is_action_just_pressed("attack") :
 		if player.get_morph() :
 			is_charging = false
@@ -108,6 +109,7 @@ func get_input() -> void :
 	if Input.is_action_just_pressed("weapon_select") :
 		weapon_index = (weapon_index + 1) % available_weapons.size()
 		current_weapon = available_weapons[weapon_index]
+		print(current_weapon)
 		heads_up_display.set_weapon(current_weapon)
 		missile_scene = set_weapon(current_weapon)
 
@@ -149,7 +151,7 @@ func shoot(dir : Vector2, modifier : String = "") -> void :
 	bullet_instance.rotation = dir.angle()
 
 func set_weapon(weapon_name : String) -> PackedScene :
-	return load("res://Entities/player/bullets/"+weapon_name+".tscn")
+	return load("res://Entities/player/bullets/"+weapon_name.to_lower()+".tscn")
 
 func set_bullet(bullet_name : String) -> void :
 	bullet_scene = load("res://Entities/player/bullets/"+bullet_name+".tscn")
