@@ -13,11 +13,10 @@ func drop_pickups() -> void:
 
 func _on_hurtbox_entered(body : Area2D) -> void:
 	take_damage(body.owner.damage)
-	for i in range(3):
-		sprite.modulate.v = 15
-		await get_tree().create_timer(0.05).timeout
-		sprite.modulate.v = 1
-		await get_tree().create_timer(0.05).timeout
+	sprite.modulate.v = 15
+	await get_tree().create_timer(0.05).timeout
+	sprite.modulate.v = 1
+	await get_tree().create_timer(0.05).timeout
 
 func die() -> void:
 	drop_pickups.call_deferred()

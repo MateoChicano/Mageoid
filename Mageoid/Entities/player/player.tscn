@@ -587,5 +587,8 @@ one_shot = true
 [node name="charge_timer" type="Timer" parent="Timers" unique_id=1756234448]
 one_shot = true
 
+[node name="walljump_timer" type="Timer" parent="Timers" unique_id=1462516531]
+one_shot = true
+
 [connection signal="body_entered" from="hurtbox" to="." method="hurt_box_entered"]
 [connection signal="timeout" from="Timers/idle_timer" to="." method="_on_idle_timer_timeout"]

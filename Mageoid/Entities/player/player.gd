@@ -7,6 +7,7 @@ class_name Player extends Entity
 @onready var handgun : Node2D = $handgun
 @onready var body_sprite : Sprite2D = $Sprite2D
 @onready var idle_timer: Timer = $Timers/idle_timer
+@onready var walljump_timer: Timer = $Timers/walljump_timer
 @onready var heads_up_display : Control = $HeadsUpDisplay
 
 
@@ -32,6 +33,7 @@ func _physics_process(delta: float) -> void:
 
 	if ! self.is_on_floor():
 		self.velocity.y += self.GRAVITY * delta
+
 
 	get_input()
 	move_and_slide()
@@ -89,13 +91,19 @@ func get_input() -> void:
 		is_crouched = false
 		if self.is_on_floor() :
 			self.velocity.y = -jumpforce
-		if self.is_on_wall() :
+		elif self.is_on_wall() :
+			walljump_timer.start()
+			can_move = false
 			self.velocity.y = -jumpforce
-			body_sprite.flip_h = !body_sprite.flip_h
 			if facing == Vector2.LEFT :
-				self.velocity.x += jumpforce
+				self.velocity.x += jumpforce/2.
+				facing = Vector2.RIGHT
+				body_sprite.flip_h = false
 			else :
-				self.velocity.x -= jumpforce
+				self.velocity.x -= jumpforce/2.
+				facing = Vector2.LEFT
+				body_sprite.flip_h = true
+
 		if is_morph : 
 			pass
 	if (Input.is_action_just_released("jump")):
@@ -163,3 +171,6 @@ func get_facing() -> Vector2 :
 
 func get_morph() -> bool :
 	return is_morph
+
+func _on_walljump_timeout() -> void:
+	can_move = true
