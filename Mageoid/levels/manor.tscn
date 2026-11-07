@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://ds3w5xcr2nfox"]
+
+[ext_resource type="PackedScene" uid="uid://5txt42x7efkl" path="res://Entities/player/player.tscn" id="1_cqssl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rt2cs"]
+size = Vector2(1201, 20)
+
+[sub_resource type="QuadMesh" id="QuadMesh_rt2cs"]
+
+[node name="Node2D" type="Node2D" unique_id=792752595]
+
+[node name="player" parent="." unique_id=817353588 instance=ExtResource("1_cqssl")]
+position = Vector2(345, 196)
+
+[node name="wall" type="StaticBody2D" parent="." unique_id=1349079968]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall" unique_id=1704796726]
+position = Vector2(567.5, 0)
+shape = SubResource("RectangleShape2D_rt2cs")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="wall" unique_id=1594906527]
+position = Vector2(578.49994, 0)
+scale = Vector2(1176.9999, 20)
+mesh = SubResource("QuadMesh_rt2cs")
+
+[node name="wall2" type="StaticBody2D" parent="." unique_id=398158124]
+position = Vector2(0, 644)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall2" unique_id=432062529]
+position = Vector2(567.5, 0)
+shape = SubResource("RectangleShape2D_rt2cs")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="wall2" unique_id=269405334]
+position = Vector2(578.49994, 0)
+scale = Vector2(1176.9999, 20)
+mesh = SubResource("QuadMesh_rt2cs")
+
+[node name="wall3" type="StaticBody2D" parent="." unique_id=1477895380]
+rotation = 1.5707964
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall3" unique_id=1001734973]
+position = Vector2(567.5, 0)
+shape = SubResource("RectangleShape2D_rt2cs")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="wall3" unique_id=1899500865]
+position = Vector2(578.49994, 0)
+scale = Vector2(1176.9999, 20)
+mesh = SubResource("QuadMesh_rt2cs")
+
+[node name="wall4" type="StaticBody2D" parent="." unique_id=1481947942]
+position = Vector2(1153, 0)
+rotation = 1.5707964
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall4" unique_id=1484573594]
+position = Vector2(567.5, 0)
+shape = SubResource("RectangleShape2D_rt2cs")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="wall4" unique_id=139775397]
+position = Vector2(578.49994, 0)
+scale = Vector2(1176.9999, 20)
+mesh = SubResource("QuadMesh_rt2cs")

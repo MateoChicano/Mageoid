@@ -76,7 +76,7 @@ func get_input() -> void:
 			handgun.sprite.flip_v = false
 		# facing = Vector2.UP
 	
-	if Input.is_action_just_pressed("down") :
+	if Input.is_action_just_pressed("down") and is_on_floor() :
 		if is_crouched :
 			is_crouched = false
 			is_morph = true
