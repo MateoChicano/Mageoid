@@ -78,9 +78,22 @@ position = Vector2(0, 0.35714006)
 scale = Vector2(11.715084, -39.08163)
 mesh = SubResource("QuadMesh_b3oru")
 
+[node name="StaticBody2D4" type="StaticBody2D" parent="." unique_id=1015966476]
+position = Vector2(-220.99998, 59)
+rotation = -1.5707964
+scale = Vector2(2.96, 9.800001)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4" unique_id=683007803]
+shape = SubResource("RectangleShape2D_pdtm5")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D4" unique_id=1848509713]
+position = Vector2(0, 0.35714006)
+scale = Vector2(11.715084, -39.08163)
+mesh = SubResource("QuadMesh_b3oru")
+
 [node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=1691255609]
 position = Vector2(-242.00003, 507)
-scale = Vector2(2.96, 9.800001)
+scale = Vector2(2.96, 13.080001)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=1467465810]
 position = Vector2(4.155426, -13.928574)
@@ -99,7 +112,7 @@ scale = Vector2(2.2800028, 2.2800028)
 position = Vector2(928, 444)
 scale = Vector2(2.2800028, 2.2800028)
 
-[node name="super missile" parent="." unique_id=1858806097 instance=ExtResource("3_gmgay")]
+[node name="grapple" parent="." unique_id=1858806097 instance=ExtResource("3_gmgay")]
 position = Vector2(-84, 464.99997)
 scale = Vector2(23.825, 23.825)
 type = 1

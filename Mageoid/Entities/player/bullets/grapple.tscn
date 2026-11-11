@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://cjc65c6wqvuuf"]
+
+[ext_resource type="Script" uid="uid://k85qtt1e37n" path="res://Entities/player/bullets/grapple.gd" id="1_8yxtf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rt2cs"]
+radius = 4.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_twgj4"]
+size = Vector2(100, 4)
+
+[node name="Node2D" type="Node2D" unique_id=1016807633]
+script = ExtResource("1_8yxtf")
+damage = 1
+metadata/_custom_type_script = "uid://bn2s1gqfhpepx"
+
+[node name="hook" type="RigidBody2D" parent="." unique_id=1492972298]
+position = Vector2(100, 0)
+
+[node name="Area2D" type="Area2D" parent="hook" unique_id=533101741]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hook/Area2D" unique_id=912610386]
+shape = SubResource("CircleShape2D_rt2cs")
+
+[node name="rope" type="Line2D" parent="." unique_id=1723843877]
+points = PackedVector2Array(0, 0, 100, 0)
+width = 2.0
+default_color = Color(0.039215688, 1, 1, 1)
+
+[node name="Area2D" type="Area2D" parent="rope" unique_id=455993422]
+position = Vector2(50, 0)
+collision_layer = 2
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="rope/Area2D" unique_id=269284327]
+shape = SubResource("RectangleShape2D_twgj4")

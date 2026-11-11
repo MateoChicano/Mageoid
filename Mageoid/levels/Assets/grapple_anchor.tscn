@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bvqumbie6tnrl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rt2cs"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rt2cs"]
+
+[node name="Node2D" type="Node2D" unique_id=1538028578]
+
+[node name="GrappleAnchor" type="StaticBody2D" parent="." unique_id=1987069145]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrappleAnchor" unique_id=181290391]
+shape = SubResource("RectangleShape2D_rt2cs")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="." unique_id=1106616324]
+position = Vector2(95, 24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" unique_id=290129047]
+shape = SubResource("CircleShape2D_rt2cs")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="." unique_id=279401847]
+node_a = NodePath("../GrappleAnchor")
+node_b = NodePath("../RigidBody2D")
