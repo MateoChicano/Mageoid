@@ -520,7 +520,7 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 [sub_resource type="SphereMesh" id="SphereMesh_rt2cs"]
 
 [node name="player" type="CharacterBody2D" unique_id=817353588]
-collision_layer = 0
+collision_layer = 64
 script = ExtResource("1_qjpfe")
 health = 99
 

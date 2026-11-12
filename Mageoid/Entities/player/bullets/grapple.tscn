@@ -16,9 +16,7 @@ metadata/_custom_type_script = "uid://bn2s1gqfhpepx"
 [node name="hook" type="RigidBody2D" parent="." unique_id=1492972298]
 position = Vector2(100, 0)
 
-[node name="Area2D" type="Area2D" parent="hook" unique_id=533101741]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hook/Area2D" unique_id=912610386]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hook" unique_id=912610386]
 shape = SubResource("CircleShape2D_rt2cs")
 
 [node name="rope" type="Line2D" parent="." unique_id=1723843877]

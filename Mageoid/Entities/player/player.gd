@@ -1,27 +1,29 @@
 class_name Player extends Entity
 
-@export var speed : int = 300
-@export var jumpforce : int = 700
+@export var speed: int = 300
+@export var jumpforce: int = 700
 
-@onready var animationPlayer : AnimationPlayer = $AnimationPlayer
-@onready var handgun : Node2D = $handgun
-@onready var body_sprite : Sprite2D = $Sprite2D
+@onready var animationPlayer: AnimationPlayer = $AnimationPlayer
+@onready var handgun: Node2D = $handgun
+@onready var body_sprite: Sprite2D = $Sprite2D
 @onready var idle_timer: Timer = $Timers/idle_timer
 @onready var walljump_timer: Timer = $Timers/walljump_timer
-@onready var heads_up_display : Control = $HeadsUpDisplay
+@onready var heads_up_display: Control = $HeadsUpDisplay
 
 
-var max_health : int = 100
-var facing : Vector2 = Vector2.RIGHT
+var max_health: int = 100
+var facing: Vector2 = Vector2.RIGHT
+var grapple_point : PinJoint2D = null
 
-var can_move : bool = true
-var can_jump : bool = true
-var is_crouched : bool = false
-var is_morph : bool = false
-var is_charging : bool = false
+var can_move: bool = true
+var can_jump: bool = true
+var is_crouched: bool = false
+var is_morph: bool = false
+var is_charging: bool = false
+var is_grappled: bool = false
 
-const knockback_force : int = 100
-const invincibility_time : float = 2
+const knockback_force: int = 100
+const invincibility_time: float = 2
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -30,106 +32,118 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-
-	if ! self.is_on_floor():
+	if !self.is_on_floor():
 		self.velocity.y += self.GRAVITY * delta
 
 
 	get_input()
 	move_and_slide()
 
+func get_facing() -> Vector2:
+	return facing
+
+func get_morph() -> bool:
+	return is_morph
+
 func get_input() -> void:
-	
 	var horizontal_input = Input.get_axis("left", "right")
 	var input_direction = Input.get_vector("left", "right", "up", "down")
 
 	if input_direction:
 		handgun.rotation = input_direction.angle()
 
-	if Input.is_action_pressed("left") : 
+	if Input.is_action_pressed("left"):
 		is_crouched = false
 		self.facing = Vector2.LEFT
 		body_sprite.flip_h = true
 		handgun.sprite.flip_v = true
 
-	if Input.is_action_pressed("right") :
+	if Input.is_action_pressed("right"):
 		is_crouched = false
 		self.facing = Vector2.RIGHT
 		body_sprite.flip_h = false
 		handgun.sprite.flip_v = false
 
-	if Input.is_action_just_pressed("up") :
-		if is_morph :
+	if Input.is_action_just_pressed("up"):
+		if is_morph:
 			is_morph = false
 			is_crouched = true
 			can_jump = true
-		else :
+		else:
 			is_crouched = false
 	
-	if Input.is_action_pressed("up") :
-		
+	if Input.is_action_pressed("up"):
 		idle_timer.start()
 		handgun.visible = true
-		if facing == Vector2.LEFT :
+		if facing == Vector2.LEFT:
 			handgun.sprite.flip_v = true
-		else :
+		else:
 			handgun.sprite.flip_v = false
 		# facing = Vector2.UP
 	
-	if Input.is_action_just_pressed("down") and is_on_floor() :
-		if is_crouched :
+	if Input.is_action_just_pressed("down") and is_on_floor():
+		if is_crouched:
 			is_crouched = false
 			is_morph = true
 			can_jump = false
-		else :
+		else:
 			is_crouched = true
 
-	if can_move :
+	if can_move:
 		self.velocity.x = lerp(self.velocity.x, horizontal_input * speed, 0.25)
 	
 	if (Input.is_action_just_pressed("jump")):
 		is_crouched = false
-		if self.is_on_floor() :
-			self.velocity.y = -jumpforce
-		elif self.is_on_wall() :
+		if self.is_on_floor():
+			self.velocity.y = - jumpforce
+		elif self.is_on_wall():
 			walljump_timer.start()
 			can_move = false
-			self.velocity.y = -jumpforce
-			if facing == Vector2.LEFT :
-				self.velocity.x += jumpforce/2.
+			self.velocity.y = - jumpforce
+			if facing == Vector2.LEFT:
+				self.velocity.x += jumpforce / 2.
 				facing = Vector2.RIGHT
 				body_sprite.flip_h = false
-			else :
-				self.velocity.x -= jumpforce/2.
+			else:
+				self.velocity.x -= jumpforce / 2.
 				facing = Vector2.LEFT
 				body_sprite.flip_h = true
 
-		if is_morph : 
+		if is_morph:
 			pass
+	
 	if (Input.is_action_just_released("jump")):
-		if self.velocity.y < -jumpforce / 3. :
-			self.velocity.y = -jumpforce / 3.
+		if self.velocity.y < -jumpforce / 3.:
+			self.velocity.y = - jumpforce / 3.
 	
 		
+	if Input.is_action_just_pressed("grappling") and grapple_point :
+		is_grappled = true
+		grapple_point.node_b = grapple_point.get_parent().get_path_to(self)
 
-	if Input.is_action_pressed("aim") :
+	if Input.is_action_just_released("grappling") and is_grappled :
+		is_grappled = false
+		if grapple_point:
+			grapple_point.node_b = ""
+	
+	if Input.is_action_pressed("aim"):
 		idle_timer.start()
 		handgun.visible = true
 		velocity.x /= 3
 
-		if is_on_floor() :
+		if is_on_floor():
 			velocity = Vector2.ZERO
 			can_jump = false
-		else :
+		else:
 			can_jump = true
-		var dir : Vector2  = input_direction.normalized()
+		var dir: Vector2 = input_direction.normalized()
 		handgun.rotation = dir.angle()
 
-		if dir.x < 0 :
-			body_sprite.flip_h = true 
+		if dir.x < 0:
+			body_sprite.flip_h = true
 			handgun.sprite.flip_v = true
 			facing = Vector2.LEFT
-		else :
+		else:
 			body_sprite.flip_h = false
 			handgun.sprite.flip_v = false
 			facing = Vector2.RIGHT
@@ -138,39 +152,32 @@ func get_input() -> void:
 		handgun.rotation = facing.angle()
 	
 
-
-func hurt_box_entered(body : Node2D) -> void :
-	if health - body.damage > 0 :
-		var knockback_dir : Vector2 = Vector2(facing.x*-1, -1).normalized()
+func hurt_box_entered(body: Node2D) -> void:
+	if health - body.damage > 0:
+		var knockback_dir: Vector2 = Vector2(facing.x * -1, -1).normalized()
 		velocity.x = knockback_dir.x * 5000
 		velocity.y = knockback_dir.y * 500
 		take_damage(body.damage)
 		heads_up_display.set_health(health)
 		for i in range(3):
 			await blink()
-	else : 
+	else:
 		print("Game over")
 
 func _on_idle_timer_timeout() -> void:
 	handgun.visible = false
-	if body_sprite.flip_h :
+	if body_sprite.flip_h:
 		facing = Vector2.LEFT
-	else :
+	else:
 		facing = Vector2.RIGHT
 	handgun.rotation = facing.angle()
 	idle_timer.start()
 
-func blink() -> void :
+func blink() -> void:
 	body_sprite.modulate.v = 15
 	await get_tree().create_timer(0.05).timeout
 	body_sprite.modulate.v = 1
 	await get_tree().create_timer(0.05).timeout
-
-func get_facing() -> Vector2 :
-	return facing
-
-func get_morph() -> bool :
-	return is_morph
 
 func _on_walljump_timeout() -> void:
 	can_move = true
