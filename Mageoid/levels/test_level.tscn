@@ -113,12 +113,14 @@ position = Vector2(928, 444)
 scale = Vector2(2.2800028, 2.2800028)
 
 [node name="Node2D" parent="." unique_id=1538028578 instance=ExtResource("4_w7r7j")]
-position = Vector2(-16, 302)
+position = Vector2(309, 260)
 
-[node name="Anchor" parent="Node2D" index="2" unique_id=279401847]
-motor_target_velocity = 1.7933258
+[node name="Node2D2" parent="." unique_id=1939061898 instance=ExtResource("4_w7r7j")]
+position = Vector2(542, 269)
+
+[node name="Node2D3" parent="." unique_id=531479048 instance=ExtResource("4_w7r7j")]
+position = Vector2(39, 267)
 
 [connection signal="timeout" from="player/Timers/walljump_timer" to="player" method="_on_walljump_timeout"]
 
 [editable path="player"]
-[editable path="Node2D"]

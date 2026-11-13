@@ -13,8 +13,7 @@ class_name Player extends Entity
 
 var max_health: int = 100
 var facing: Vector2 = Vector2.RIGHT
-var grapple_point : PinJoint2D = null
-
+var grapple_point: Node2D = null
 var can_move: bool = true
 var can_jump: bool = true
 var is_crouched: bool = false
@@ -38,6 +37,9 @@ func _physics_process(delta: float) -> void:
 
 	get_input()
 	move_and_slide()
+
+	if is_grappled and is_instance_valid(grapple_point):
+		grapple()
 
 func get_facing() -> Vector2:
 	return facing
@@ -117,14 +119,12 @@ func get_input() -> void:
 			self.velocity.y = - jumpforce / 3.
 	
 		
-	if Input.is_action_just_pressed("grappling") and grapple_point :
+	if Input.is_action_just_pressed("grappling") and grapple_point:
 		is_grappled = true
-		grapple_point.node_b = grapple_point.get_parent().get_path_to(self)
-
-	if Input.is_action_just_released("grappling") and is_grappled :
+		
+	if Input.is_action_just_released("grappling") and is_grappled:
 		is_grappled = false
-		if grapple_point:
-			grapple_point.node_b = ""
+		self.velocity.y -= jumpforce / 2. 
 	
 	if Input.is_action_pressed("aim"):
 		idle_timer.start()
@@ -181,3 +181,21 @@ func blink() -> void:
 
 func _on_walljump_timeout() -> void:
 	can_move = true
+
+func grapple() -> void :
+	var offset := global_position - grapple_point.global_position
+	var distance := offset.length()
+
+	if distance <= grapple_point.grapple_length or distance == 0.0:
+		return
+
+	var rope_direction := offset / distance
+
+	# Empêche le joueur de dépasser la longueur de la corde.
+	global_position = grapple_point.global_position + rope_direction * grapple_point.grapple_length
+
+	# Retire seulement la vitesse qui éloigne le joueur de l'ancrage.
+	# La vitesse tangentielle reste, ce qui permet de se balancer.
+	var outward_speed := velocity.dot(rope_direction)
+	if outward_speed > 0.0:
+		velocity -= rope_direction * outward_speed

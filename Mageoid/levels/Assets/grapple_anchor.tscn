@@ -7,7 +7,7 @@
 [sub_resource type="QuadMesh" id="QuadMesh_3bm1v"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dn2og"]
-radius = 151.05296
+radius = 150.0
 
 [node name="GrappleAnchor" type="Node2D" unique_id=1538028578]
 script = ExtResource("1_gkkyd")
@@ -24,7 +24,6 @@ scale = Vector2(20, 20)
 mesh = SubResource("QuadMesh_3bm1v")
 
 [node name="hook_detector" type="Area2D" parent="." unique_id=2097007549]
-position = Vector2(3, -5)
 collision_layer = 0
 collision_mask = 64
 
@@ -32,8 +31,7 @@ collision_mask = 64
 shape = SubResource("CircleShape2D_dn2og")
 debug_color = Color(0, 0.6, 0.69803923, 0)
 
-[node name="Anchor" type="PinJoint2D" parent="." unique_id=279401847]
-node_a = NodePath("../StaticBody2D")
+[node name="Anchor" type="Marker2D" parent="." unique_id=741929324]
 
 [node name="rope" type="Line2D" parent="." unique_id=274687724]
 points = PackedVector2Array(0, 0, 0, 0)
