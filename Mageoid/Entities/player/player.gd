@@ -54,6 +54,9 @@ func get_input() -> void:
 	if input_direction:
 		handgun.rotation = input_direction.angle()
 
+	if can_move:
+		self.velocity = lerp(self.velocity, Vector2(horizontal_input * speed, self.velocity.y), 0.25)
+
 	if Input.is_action_pressed("left"):
 		is_crouched = false
 		self.facing = Vector2.LEFT
@@ -91,8 +94,6 @@ func get_input() -> void:
 		else:
 			is_crouched = true
 
-	if can_move:
-		self.velocity.x = lerp(self.velocity.x, horizontal_input * speed, 0.25)
 	
 	if (Input.is_action_just_pressed("jump")):
 		is_crouched = false
@@ -124,7 +125,7 @@ func get_input() -> void:
 		
 	if Input.is_action_just_released("grappling") and is_grappled:
 		is_grappled = false
-		self.velocity.y -= jumpforce / 2. 
+		self.velocity.y *= 5
 	
 	if Input.is_action_pressed("aim"):
 		idle_timer.start()
@@ -185,17 +186,18 @@ func _on_walljump_timeout() -> void:
 func grapple() -> void :
 	var offset := global_position - grapple_point.global_position
 	var distance := offset.length()
-
+	
 	if distance <= grapple_point.grapple_length or distance == 0.0:
 		return
 
 	var rope_direction := offset / distance
+	# var tangent : Vector2 = self.global_position.direction
+	
+	self.get_node("RayCast2D").target_position = grapple_point.bottom.global_position - self.global_position
 
-	# Empêche le joueur de dépasser la longueur de la corde.
+
 	global_position = grapple_point.global_position + rope_direction * grapple_point.grapple_length
 
-	# Retire seulement la vitesse qui éloigne le joueur de l'ancrage.
-	# La vitesse tangentielle reste, ce qui permet de se balancer.
 	var outward_speed := velocity.dot(rope_direction)
 	if outward_speed > 0.0:
-		velocity -= rope_direction * outward_speed
+		velocity -= rope_direction * outward_speed 

@@ -36,5 +36,8 @@ debug_color = Color(0, 0.6, 0.69803923, 0)
 [node name="rope" type="Line2D" parent="." unique_id=274687724]
 points = PackedVector2Array(0, 0, 0, 0)
 
+[node name="Bottom" type="Marker2D" parent="." unique_id=1320382842]
+position = Vector2(0, 150)
+
 [connection signal="body_entered" from="hook_detector" to="." method="_on_hook_detector_body_entered"]
 [connection signal="body_exited" from="hook_detector" to="." method="_on_hook_detector_body_exited"]
