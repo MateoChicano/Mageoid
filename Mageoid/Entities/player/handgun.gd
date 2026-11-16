@@ -84,7 +84,10 @@ func get_input() -> void :
 				if ammo >= ammo_consumed :
 					ammo-=ammo_consumed
 					heads_up_display.set_ammo(ammo)
-					shoot(player.get_facing(), "missile")
+					if input_direction :
+						shoot(input_direction, "missile")
+					else :
+						shoot(player.get_facing(), "missile")
 					return
 				else :
 					return
@@ -139,6 +142,7 @@ func shoot(dir : Vector2, modifier : String = "") -> void :
 		match modifier :
 			"missile" :
 				bullet_instance = missile_scene.instantiate()
+				print("shooting missile")
 			"charge" :
 				bullet_instance = CHARGED_BULET_SCENE.instantiate()
 				bullet_instance.scale = Vector2(2, 2)
