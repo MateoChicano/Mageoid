@@ -142,7 +142,6 @@ func shoot(dir : Vector2, modifier : String = "") -> void :
 		match modifier :
 			"missile" :
 				bullet_instance = missile_scene.instantiate()
-				print("shooting missile")
 			"charge" :
 				bullet_instance = CHARGED_BULET_SCENE.instantiate()
 				bullet_instance.scale = Vector2(2, 2)

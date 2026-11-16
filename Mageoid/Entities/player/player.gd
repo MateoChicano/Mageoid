@@ -39,7 +39,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 	if is_grappled and is_instance_valid(grapple_point):
-		grapple()
+		grapple(delta)
 
 func get_facing() -> Vector2:
 	return facing
@@ -54,7 +54,7 @@ func get_input() -> void:
 	if input_direction:
 		handgun.rotation = input_direction.angle()
 
-	if can_move:
+	if can_move and !is_grappled:
 		self.velocity = lerp(self.velocity, Vector2(horizontal_input * speed, self.velocity.y), 0.25)
 
 	if Input.is_action_pressed("left"):
@@ -125,7 +125,8 @@ func get_input() -> void:
 		
 	if Input.is_action_just_released("grappling") and is_grappled:
 		is_grappled = false
-		self.velocity.y *= 5
+		self.velocity.y *= 1.5
+		self.velocity.x += facing.x * 200
 	
 	if Input.is_action_pressed("aim"):
 		idle_timer.start()
@@ -183,18 +184,18 @@ func blink() -> void:
 func _on_walljump_timeout() -> void:
 	can_move = true
 
-func grapple() -> void :
+func grapple(delta) -> void :
 	var offset := global_position - grapple_point.global_position
 	var distance := offset.length()
+	var horizontal_input := Input.get_axis("left", "right")
 	
 	if distance <= grapple_point.grapple_length or distance == 0.0:
 		return
 
 	var rope_direction := offset / distance
-	# var tangent : Vector2 = self.global_position.direction
-	
-	self.get_node("RayCast2D").target_position = grapple_point.bottom.global_position - self.global_position
+	var tangent := Vector2(rope_direction.y, -rope_direction.x)
 
+	velocity += tangent * horizontal_input * 400 * delta
 
 	global_position = grapple_point.global_position + rope_direction * grapple_point.grapple_length
 

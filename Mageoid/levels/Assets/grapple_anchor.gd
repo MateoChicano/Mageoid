@@ -19,9 +19,10 @@ func _on_hook_detector_body_entered(body: Node2D) -> void:
 				rope.set_point_position(1, rope.to_local(player.global_position))
 
 func _on_hook_detector_body_exited(body: Node2D) -> void:
-	if body != player:
-		return
-	else :
-		player.grapple_point = null
+	if body == player:
+		if is_instance_valid(player) and player.grapple_point == self:
+			player.grapple_point = null
+
 		player = null
 		rope.set_point_position(1, Vector2.ZERO)
+
