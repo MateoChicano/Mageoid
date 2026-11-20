@@ -1,0 +1,107 @@
+[gd_scene format=3 uid="uid://qkukdju5xh16"]
+
+[ext_resource type="Script" uid="uid://ifq7jnwpicrc" path="res://Interface/Menus/title_screen.gd" id="1_0awpt"]
+
+[sub_resource type="Theme" id="Theme_0awpt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ybm76"]
+bg_color = Color(0.16206557, 0.1620656, 0.16206548, 1)
+
+[node name="TitleScreen" type="Control" unique_id=761763006]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0awpt")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1208960370]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08, 0.1, 0.16, 1)
+
+[node name="MenuContainer" type="CenterContainer" parent="." unique_id=16242532]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer" unique_id=1407531004]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="MenuContainer/VBoxContainer" unique_id=1500792122]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Super Mageoid"
+horizontal_alignment = 1
+
+[node name="PlayButton" type="Button" parent="MenuContainer/VBoxContainer" unique_id=934059102]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+text = "Play"
+
+[node name="OptionsButton" type="Button" parent="MenuContainer/VBoxContainer" unique_id=548625354]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+text = "Options"
+
+[node name="QuitButton" type="Button" parent="MenuContainer/VBoxContainer" unique_id=474824049]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+text = "Quit Game"
+
+[node name="OptionsPanel" type="Panel" parent="." unique_id=815741479]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -120.0
+offset_right = 180.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_0awpt")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ybm76")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsPanel" unique_id=1670383718]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="OptionsTitle" type="Label" parent="OptionsPanel/VBoxContainer" unique_id=1585973203]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Options"
+horizontal_alignment = 1
+
+[node name="OptionsInfo" type="Label" parent="OptionsPanel/VBoxContainer" unique_id=799111152]
+layout_mode = 2
+text = "No options available yet."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="BackButton" type="Button" parent="OptionsPanel/VBoxContainer" unique_id=189058953]
+layout_mode = 2
+text = "Back"

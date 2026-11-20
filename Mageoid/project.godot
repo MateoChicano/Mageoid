@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Super Mageoid"
-run/main_scene="uid://qihgss2rdvg8"
+run/main_scene="res://Interface/Menus/TitleScreen.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
