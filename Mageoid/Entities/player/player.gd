@@ -19,7 +19,7 @@ var is_crouched: bool = false
 var is_morph: bool = false
 var is_grappled: bool = false
 
-const knockback_force: int = 100
+const knockback_force: int = 1000
 const invincibility_time: float = 2
 
 # Called when the node enters the scene tree for the first time.

@@ -9,10 +9,6 @@ extends Control
 
 func _ready() -> void:
 	options_panel.visible = false
-	play_button.pressed.connect(_on_play_pressed)
-	options_button.pressed.connect(_on_options_pressed)
-	quit_button.pressed.connect(_on_quit_pressed)
-	back_button.pressed.connect(_on_back_pressed)
 
 
 func _on_play_pressed() -> void:

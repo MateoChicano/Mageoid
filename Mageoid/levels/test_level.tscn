@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://qihgss2rdvg8"]
 
 [ext_resource type="PackedScene" uid="uid://5txt42x7efkl" path="res://Entities/player/player.tscn" id="1_gmgay"]
+[ext_resource type="PackedScene" uid="uid://cy8irxp5s862h" path="res://Entities/ennemy/gamboo.tscn" id="4_o6mel"]
 [ext_resource type="PackedScene" uid="uid://bvqumbie6tnrl" path="res://levels/Assets/grapple_anchor.tscn" id="4_w7r7j"]
 [ext_resource type="PackedScene" path="res://Interface/Menus/PauseMenu.tscn" id="5_pause"]
 
@@ -50,7 +51,6 @@ shape = SubResource("RectangleShape2D_gmgay")
 
 [node name="player" parent="." unique_id=1678342468 instance=ExtResource("1_gmgay")]
 position = Vector2(210, 361)
-health = 100
 
 [node name="walljump_timer" parent="player/Timers" parent_id_path=PackedInt32Array(1678342468, 402764336) index="2" unique_id=1462516531]
 wait_time = 0.5
@@ -113,8 +113,8 @@ position = Vector2(664, 268)
 [node name="Node2D3" parent="." unique_id=531479048 instance=ExtResource("4_w7r7j")]
 position = Vector2(39, 267)
 
-[connection signal="timeout" from="player/Timers/walljump_timer" to="player" method="_on_walljump_timeout"]
+[node name="PauseMenu" parent="." unique_id=1389406622 instance=ExtResource("5_pause")]
+
+[node name="gamboo" parent="." unique_id=1099810640 instance=ExtResource("4_o6mel")]
 
 [editable path="player"]
-
-[node name="PauseMenu" parent="." instance=ExtResource("5_pause")]
