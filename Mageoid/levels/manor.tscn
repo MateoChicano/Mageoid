@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ds3w5xcr2nfox"]
 
 [ext_resource type="PackedScene" uid="uid://5txt42x7efkl" path="res://Entities/player/player.tscn" id="1_cqssl"]
+[ext_resource type="PackedScene" path="res://Interface/Menus/PauseMenu.tscn" id="2_pause"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rt2cs"]
 size = Vector2(1201, 20)
@@ -59,3 +60,5 @@ shape = SubResource("RectangleShape2D_rt2cs")
 position = Vector2(578.49994, 0)
 scale = Vector2(1176.9999, 20)
 mesh = SubResource("QuadMesh_rt2cs")
+
+[node name="PauseMenu" parent="." instance=ExtResource("2_pause")]
