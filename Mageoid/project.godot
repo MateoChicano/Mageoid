@@ -15,10 +15,6 @@ run/main_scene="res://Interface/Menus/TitleScreen.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
-[global]
-
-shift=false
-
 [input]
 
 left={

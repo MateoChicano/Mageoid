@@ -3,7 +3,6 @@ class_name Player extends Entity
 @export var speed: int = 300
 @export var jumpforce: int = 700
 
-@onready var animationPlayer: AnimationPlayer = $AnimationPlayer
 @onready var handgun: Node2D = $handgun
 @onready var body_sprite: Sprite2D = $Sprite2D
 @onready var idle_timer: Timer = $Timers/idle_timer
@@ -18,7 +17,6 @@ var can_move: bool = true
 var can_jump: bool = true
 var is_crouched: bool = false
 var is_morph: bool = false
-var is_charging: bool = false
 var is_grappled: bool = false
 
 const knockback_force: int = 100
@@ -155,16 +153,20 @@ func get_input() -> void:
 	
 
 func hurt_box_entered(body: Node2D) -> void:
-	if health - body.damage > 0:
+	var damage : int = body.damage
+	if health - damage > 0:
 		var knockback_dir: Vector2 = Vector2(facing.x * -1, -1).normalized()
 		velocity.x = knockback_dir.x * 5000
 		velocity.y = knockback_dir.y * 500
-		take_damage(body.damage)
+		take_damage(damage)
 		heads_up_display.set_health(health)
 		for i in range(3):
 			await blink()
 	else:
+		take_damage(damage)
+		heads_up_display.set_health(max(health, 0))
 		print("Game over")
+		get_tree().call_deferred("reload_current_scene")
 
 func _on_idle_timer_timeout() -> void:
 	handgun.visible = false

@@ -1,0 +1,9 @@
+# Krita source files (kept locally, not versioned)
+*.kra
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+*~

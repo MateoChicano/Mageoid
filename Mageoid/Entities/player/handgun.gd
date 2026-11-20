@@ -27,7 +27,7 @@ var missile_scene : PackedScene = load("res://Entities/player/bullets/missile.ts
 
 var current_bullet : String
 var available_weapons : Array = ["Missile"]
-var current_weapon : String
+var current_weapon : String = available_weapons[0]
 var weapon_index : int = 0
 
 var max_ammo : int = 100
@@ -68,6 +68,8 @@ func get_input() -> void :
 	if Input.is_action_just_pressed("attack") :
 		if player.get_morph() :
 			is_charging = false
+			charge_timer.stop()
+			charge_ball.visible = false
 			var bomb_instance = BOMB_SCENE.instantiate()
 			bomb_instance.position = player.position
 			get_tree().current_scene.add_child(bomb_instance)
@@ -149,11 +151,14 @@ func shoot(dir : Vector2, modifier : String = "") -> void :
 		bullet_instance = bullet_scene.instantiate()
 	get_tree().current_scene.add_child(bullet_instance)
 	bullet_instance.transform = self.get_node("cannon").global_transform
-	bullet_instance.position = self.get_node("cannon").global_position + Vector2(handgun_pos, 0)
+	bullet_instance.position = self.get_node("cannon").global_position
 	bullet_instance.rotation = dir.angle()
 
 func set_weapon(weapon_name : String) -> PackedScene :
-	return load("res://Entities/player/bullets/"+weapon_name.to_lower()+".tscn")
+	var weapon_path : String = "res://Entities/player/bullets/" + weapon_name.to_lower().replace(" ", "_") + ".tscn"
+	return load(weapon_path)
 
 func set_bullet(bullet_name : String) -> void :
-	bullet_scene = load("res://Entities/player/bullets/"+bullet_name+".tscn")
+	var bullet_path : String = "res://Entities/player/bullets/" + bullet_name.to_lower() + ".tscn"
+	if ResourceLoader.exists(bullet_path):
+		bullet_scene = load(bullet_path)

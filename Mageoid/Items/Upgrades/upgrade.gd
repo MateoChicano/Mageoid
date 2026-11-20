@@ -18,9 +18,10 @@ func _on_upgrade_area_entered(area: Area2D) -> void:
 			cplayer.heads_up_display.set_health(cplayer.health)
 		UpgradeType.WEAPON :
 			var chandgun = cplayer.get_node("handgun")
-			if not chandgun.available_weapons.has(name) :
-				chandgun.available_weapons.append(name.capitalize())
-				cplayer.heads_up_display.add_weapon(name.capitalize())
+			var weapon_name : String = name.capitalize()
+			if not chandgun.available_weapons.has(weapon_name) :
+				chandgun.available_weapons.append(weapon_name)
+				cplayer.heads_up_display.add_weapon(weapon_name)
 			else :
 				chandgun.max_ammo += 5
 				chandgun.ammo += 5
@@ -29,5 +30,5 @@ func _on_upgrade_area_entered(area: Area2D) -> void:
 			var chandgun = cplayer.get_node("handgun")
 			chandgun.set_bullet(name)
 
-			
+
 	self.queue_free()

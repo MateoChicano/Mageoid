@@ -8,13 +8,19 @@ class_name Ennemy extends Entity
 func drop_pickups() -> void:
 	var pickup_instance = pickups.instantiate()
 	var pickup_offset = Vector2(randi_range(-10, 10), randi_range(-10, 10))
-	pickup_instance.position = self.position + pickup_offset
+	pickup_instance.global_position = global_position + pickup_offset
 	get_parent().add_child(pickup_instance)
 
 func _on_hurtbox_entered(body : Area2D) -> void:
+	if body.owner == null or not ("damage" in body.owner):
+		return
 	take_damage(body.owner.damage)
+	if is_queued_for_deletion():
+		return
 	sprite.modulate.v = 15
 	await get_tree().create_timer(0.05).timeout
+	if not is_instance_valid(self) or is_queued_for_deletion():
+		return
 	sprite.modulate.v = 1
 	await get_tree().create_timer(0.05).timeout
 

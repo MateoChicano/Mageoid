@@ -522,7 +522,7 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 [node name="player" type="CharacterBody2D" unique_id=817353588]
 collision_layer = 64
 script = ExtResource("1_qjpfe")
-health = 99
+health = 100
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1410642879]
 position = Vector2(0, 3.8146973e-06)
@@ -592,3 +592,4 @@ one_shot = true
 
 [connection signal="body_entered" from="hurtbox" to="." method="hurt_box_entered"]
 [connection signal="timeout" from="Timers/idle_timer" to="." method="_on_idle_timer_timeout"]
+[connection signal="timeout" from="Timers/walljump_timer" to="." method="_on_walljump_timeout"]
