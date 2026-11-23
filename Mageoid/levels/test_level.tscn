@@ -3,7 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://5txt42x7efkl" path="res://Entities/player/player.tscn" id="1_gmgay"]
 [ext_resource type="PackedScene" uid="uid://cy8irxp5s862h" path="res://Entities/ennemy/gamboo.tscn" id="4_o6mel"]
 [ext_resource type="PackedScene" uid="uid://bvqumbie6tnrl" path="res://levels/Assets/grapple_anchor.tscn" id="4_w7r7j"]
+[ext_resource type="PackedScene" uid="uid://1hc7t32puenj" path="res://Items/Upgrades/upgrade.tscn" id="5_e7anx"]
 [ext_resource type="PackedScene" path="res://Interface/Menus/PauseMenu.tscn" id="5_pause"]
+[ext_resource type="PackedScene" uid="uid://b5p403sak2m7q" path="res://Items/Upgrades/spazer.tscn" id="6_spazer"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_sjb42"]
 
@@ -114,6 +116,14 @@ position = Vector2(664, 268)
 position = Vector2(39, 267)
 
 [node name="PauseMenu" parent="." unique_id=1389406622 instance=ExtResource("5_pause")]
+visible = false
+
+[node name="spazer" parent="." unique_id=1345227890 instance=ExtResource("6_spazer")]
+position = Vector2(440, 458)
+
+[node name="lightning" parent="." unique_id=1858806097 instance=ExtResource("5_e7anx")]
+position = Vector2(172, 442)
+type = 2
 
 [node name="gamboo" parent="." unique_id=1099810640 instance=ExtResource("4_o6mel")]
 

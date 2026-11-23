@@ -522,7 +522,6 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 [node name="player" type="CharacterBody2D" unique_id=817353588]
 collision_layer = 64
 script = ExtResource("1_qjpfe")
-jumpforce = 700
 health = 100
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1410642879]

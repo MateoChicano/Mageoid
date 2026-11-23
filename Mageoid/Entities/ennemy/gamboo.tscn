@@ -4,9 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://dud1bgy7sxxtx" path="res://Entities/ennemy/goomba.png" id="2_gqtxt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aiqo4"]
+size = Vector2(13, 12.999999)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cu4qg"]
-size = Vector2(22, 22)
+size = Vector2(3.3, 3.2499998)
 
 [node name="gamboo" type="CharacterBody2D" unique_id=1099810640]
 collision_layer = 8
@@ -19,10 +20,12 @@ health = 10
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1320069421]
 modulate = Color(1.0039686, 1.0039686, 1.0039686, 1)
 position = Vector2(4.7683716e-07, 4.7683716e-07)
-scale = Vector2(0.15625, 0.15625)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_gqtxt")
 
 [node name="collisions" type="CollisionShape2D" parent="." unique_id=725356163]
+position = Vector2(-0.5, -0.50000095)
+scale = Vector2(5, 5)
 shape = SubResource("RectangleShape2D_aiqo4")
 
 [node name="hurtbox" type="Area2D" parent="." unique_id=174196203]
@@ -31,7 +34,8 @@ collision_layer = 16
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox" unique_id=805872378]
-position = Vector2(0, 8)
+position = Vector2(-0.99999905, 8.5)
+scale = Vector2(20, 20)
 shape = SubResource("RectangleShape2D_cu4qg")
 
 [connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_entered"]
