@@ -34,6 +34,9 @@ var max_ammo : int = 100
 var ammo : int = max_ammo
 
 var is_charging : bool = false
+var is_spazer : bool = true
+
+@export var spazer_spacing : float = 16.0
 
 func _ready() -> void:
 	self.visible = false
@@ -139,20 +142,26 @@ func get_input() -> void :
 			charge_timer.stop()
 
 func shoot(dir : Vector2, modifier : String = "") -> void :
-	var bullet_instance
-	if modifier :
-		match modifier :
-			"missile" :
-				bullet_instance = missile_scene.instantiate()
-			"charge" :
-				bullet_instance = CHARGED_BULET_SCENE.instantiate()
-				bullet_instance.scale = Vector2(2, 2)
-	else :
-		bullet_instance = bullet_scene.instantiate()
-	get_tree().current_scene.add_child(bullet_instance)
-	bullet_instance.transform = self.get_node("cannon").global_transform
-	bullet_instance.position = self.get_node("cannon").global_position
-	bullet_instance.rotation = dir.angle()
+	var offsets : Array[Vector2] = [Vector2.ZERO]
+	if is_spazer :
+		var perpendicular : Vector2 = dir.rotated(PI / 2.0).normalized() * spazer_spacing
+		offsets = [-perpendicular, Vector2.ZERO, perpendicular]
+	
+		var bullet_instance
+		if modifier :
+			match modifier :
+				"missile" :
+					bullet_instance = missile_scene.instantiate()
+				"charge" :
+					bullet_instance = CHARGED_BULET_SCENE.instantiate()
+					bullet_instance.scale = Vector2(2, 2)
+		else :
+			for offset : Vector2 in offsets :
+				bullet_instance = bullet_scene.instantiate()
+				get_tree().current_scene.add_child(bullet_instance)
+				bullet_instance.transform = self.get_node("cannon").global_transform
+				bullet_instance.position = self.get_node("cannon").global_position + offset
+				bullet_instance.rotation = dir.angle()
 
 func set_weapon(weapon_name : String) -> PackedScene :
 	var weapon_path : String = "res://Entities/player/bullets/" + weapon_name.to_lower().replace(" ", "_") + ".tscn"
